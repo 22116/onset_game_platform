@@ -1,7 +1,7 @@
 includes:
     - vendor/phpstan/phpstan-symfony/extension.neon
     - vendor/phpstan/phpstan-doctrine/extension.neon
-    - vendor/phpstan/phpstan-phpunit/extension.neon
+    #- vendor/phpstan/phpstan-phpunit/extension.neon
 
 parameters:
 
@@ -13,6 +13,3 @@ parameters:
 
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml
-
-    excludes_analyse:
-        - %rootDir%/../../../src/Kernel.php

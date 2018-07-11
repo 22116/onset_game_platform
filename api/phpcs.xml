@@ -51,7 +51,10 @@
         <properties>
             <property name="usefulAnnotations" type="array" value="
 				@dataProvider,
-				@requires
+				@requires,
+				@Route,
+				@Groups,
+				@View
 			"/>
         </properties>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
