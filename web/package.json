@@ -12,6 +12,7 @@
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
     "dotenv-webpack": "^1.5.7",
+    "prerender-spa-plugin": "^3.2.1",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.16",
     "vue-router": "^3.0.1",
