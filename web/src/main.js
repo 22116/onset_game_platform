@@ -4,14 +4,9 @@ import router from "./router";
 import store from "./store";
 import BootstrapVue from "bootstrap-vue";
 import "./registerServiceWorker";
-import "bootstrap-vue/dist/bootstrap-vue.css"
-const dotEnv = require("dotenv");
+import "bootstrap-vue/dist/bootstrap-vue.css";
 
-let res = dotEnv.config();
-
-console.log(res);
-
-console.log(process.env);
+const API_URL = process.env.API_SERVER;
 
 Vue.use(BootstrapVue);
 
