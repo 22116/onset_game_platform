@@ -5,6 +5,13 @@ import store from "./store";
 import BootstrapVue from "bootstrap-vue";
 import "./registerServiceWorker";
 import "bootstrap-vue/dist/bootstrap-vue.css"
+const dotEnv = require("dotenv");
+
+let res = dotEnv.config();
+
+console.log(res);
+
+console.log(process.env);
 
 Vue.use(BootstrapVue);
 
