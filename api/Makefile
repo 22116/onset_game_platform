@@ -1,8 +1,6 @@
 init_dev:
 	composer install
 	php bin/console doctrine:migrations:migrate --allow-no-migration -n
-	npm install
-	npm run dev
 
 phpunit:
 	./vendor/bin/phpunit
