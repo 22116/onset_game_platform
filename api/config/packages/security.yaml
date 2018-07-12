@@ -1,12 +1,16 @@
 security:
     encoders:
-            FOS\UserBundle\Model\UserInterface: bcrypt
+        FOS\UserBundle\Model\UserInterface: bcrypt
 
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
 
     firewalls:
+        refresh:
+            pattern:  ^/api/token/refresh
+            stateless: true
+            anonymous: true
         login:
             pattern:  ^/api/login
             stateless: true
@@ -33,5 +37,6 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     access_control:
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }

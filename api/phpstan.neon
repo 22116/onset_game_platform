@@ -9,7 +9,7 @@ parameters:
         - src
         - tests
 
-    level: 4
+    level: 7
 
     symfony:
         container_xml_path: %rootDir%/../../../var/cache/dev/srcDevDebugProjectContainer.xml

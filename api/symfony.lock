@@ -74,6 +74,9 @@
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
     },
+    "gesdinet/jwt-refresh-token-bundle": {
+        "version": "v0.4.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
@@ -94,6 +97,15 @@
     },
     "namshi/jose": {
         "version": "7.2.3"
+    },
+    "nelmio/cors-bundle": {
+        "version": "1.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.5",
+            "ref": "1fee84e00c71edee81aa54b470260779a890c9c6"
+        }
     },
     "nette/bootstrap": {
         "version": "v2.4.6"
