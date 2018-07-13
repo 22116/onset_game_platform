@@ -29,10 +29,4 @@ class User extends BaseUser
      * @Groups({"API"})
      */
     protected $email;
-
-    /** {@inheritdoc} */
-    public function getUsername()
-    {
-        return parent::getUsername();
-    }
 }
