@@ -10,7 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 /**
  * @Route("/api/user")
  */
-class UsersController extends FOSRestController
+class UserController extends FOSRestController
 {
     /**
      * @Rest\View()
