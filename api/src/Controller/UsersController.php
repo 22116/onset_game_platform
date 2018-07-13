@@ -2,15 +2,23 @@
 
 namespace App\Controller;
 
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
+/**
+ * @Route("/api/user")
+ */
 class UsersController extends FOSRestController
 {
-    public function getUsers(): Response
+    /**
+     * @Rest\View()
+     * @Route("/current")
+     * @Method({"GET"})
+     */
+    public function getCurrentUser()
     {
-        $view = $this->view();
-
-        return $this->handleView($view);
+        return $this->getUser();
     }
 }
