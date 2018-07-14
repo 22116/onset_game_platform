@@ -6,62 +6,16 @@ import BootstrapVue from "bootstrap-vue";
 import "./registerServiceWorker";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "./assets/sass/common.sass";
-import { pathJoin } from "./utils/path";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import VueAuth from "@websanova/vue-auth";
-import webSanovaAuth from "./security/auth";
-import webSanovaHttp from "./security/http";
-import webSanovaRouter from "@websanova/vue-auth/drivers/router/vue-router.2.x.js";
+import VueAuthCore from "./security/core";
 
 Vue.router = router;
 Vue.http = axios;
 
 Vue.use(VueAxios, axios);
-Vue.use(VueAuth, {
-  auth: webSanovaAuth,
-  http: webSanovaHttp,
-  router: webSanovaRouter,
-  tokenStore: ["localStorage", "cookie"],
-  tokenDefaultName: "T_S_AU",
-  rolesVar: "roles",
-  loginData: {
-    url: pathJoin("/login_check"),
-    method: "POST",
-    redirect: "/",
-    fetchUser: false
-  },
-  registerData: {
-    url: pathJoin("/auth/register"),
-    method: "POST",
-    redirect: "/login"
-  },
-  logoutData: {
-    url: pathJoin("/auth/logout"),
-    method: "POST",
-    redirect: "/",
-    makeRequest: true
-  },
-  fetchData: {
-    url: pathJoin("/user/current"),
-    method: "GET",
-    enabled: true
-  },
-  refreshData: {
-    url: pathJoin("/token/refresh"),
-    method: "POST",
-    enabled: true,
-    interval: 5
-  },
-  token: [
-    {
-      request: "Authorization",
-      response: "Authorization",
-      authType: "bearer",
-      foundIn: "response"
-    }
-  ]
-});
+Vue.use(VueAuth, VueAuthCore);
 Vue.use(BootstrapVue);
 
 Vue.config.productionTip = false;
