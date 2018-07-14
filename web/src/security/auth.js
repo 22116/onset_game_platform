@@ -1,3 +1,5 @@
+import store from "../store";
+
 function attachJWT(http, req, tokens) {
   http.options.http._setHeaders.call(http, req, {
     "Content-Type": "application/json",
@@ -30,7 +32,11 @@ export default {
     if (
       res.data.hasOwnProperty("token") &&
       res.data.hasOwnProperty("refresh_token")
-    )
+    ) {
+      store.dispatch("init", {
+        token: res.data.token
+      });
       return Object.values(res.data).join(";");
+    }
   }
 };

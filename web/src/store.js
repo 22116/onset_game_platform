@@ -1,14 +1,11 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
-import { pathJoin } from "@/utils/path";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currentJWT: "",
-    currentRefreshToken: ""
+    currentJWT: ""
   },
   getters: {
     jwt: state => state.currentJWT,
@@ -17,32 +14,16 @@ export default new Vuex.Store({
     jwtUsername: (state, getters) =>
       getters.jwtData ? getters.jwtData.username : null,
     jwtRoles: (state, getters) =>
-      getters.jwtData ? getters.jwtData.roles : null,
-    refreshToken: state => state.currentRefreshToken
+      getters.jwtData ? getters.jwtData.roles : null
   },
   mutations: {
-    setJWT(state, jwt) {
-      state.currentJWT = jwt.token;
-      state.currentRefreshToken = jwt.refresh_token;
+    setJWT(state, token) {
+      state.currentJWT = token;
     }
   },
   actions: {
-    async fetchJWT({ commit }, { username, password }) {
-      axios
-        .post(
-          pathJoin("/api/login_check"),
-          {
-            username: username,
-            password: password
-          },
-          {
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
-        )
-        .then(response => commit("setJWT", response.data))
-        .catch(error => console.log(error));
+    init({ commit }, { token }) {
+      commit("setJWT", token);
     }
   }
 });
