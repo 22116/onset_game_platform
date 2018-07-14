@@ -12,13 +12,15 @@ export default {
   components: {
     HelloWorld
   },
-  mounted: function () {
-      this.$auth.login({
-          data: {username: '22116', password: 'degkjm'},
-          rememberMe: true
+  mounted: function() {
+    this.$auth
+      .login({
+        data: { username: "testUser", password: "test123" },
+        rememberMe: true
       })
-      .catch(error => console.log(error.response)).then(() => {
-          // console.log(this.$auth.user());
+      .catch(error => console.log(error.response))
+      .then(() => {
+        // console.log(this.$auth.user());
       });
   }
 };

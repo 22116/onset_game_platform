@@ -43,6 +43,6 @@ export default new Vuex.Store({
         )
         .then(response => commit("setJWT", response.data))
         .catch(error => console.log(error));
-    },
+    }
   }
 });
