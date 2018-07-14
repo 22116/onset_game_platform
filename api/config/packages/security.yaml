@@ -7,6 +7,10 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
+        auth:
+            pattern:  ^/api/auth/(register|resetting)
+            stateless: true
+            anonymous: true
         refresh:
             pattern:  ^/api/token/refresh
             stateless: true
@@ -37,6 +41,8 @@ security:
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     access_control:
-        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/token/refresh,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login,          roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/auth/register,  roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,                roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/auth/logout,    roles: IS_AUTHENTICATED_FULLY }

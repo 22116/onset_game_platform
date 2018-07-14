@@ -4,7 +4,6 @@
     <file>./tests</file>
 
     <exclude-pattern>*/Migrations/*</exclude-pattern>
-    <exclude-pattern>*/Entity/*</exclude-pattern>
     <exclude-pattern>/src/Kernel.php</exclude-pattern>
 
     <rule ref="PSR2" />
@@ -54,7 +53,9 @@
 				@requires,
 				@Route,
 				@Groups,
-				@View
+				@View,
+				@Rest\RequestParam,
+				@Rest\QueryParam,
 			"/>
         </properties>
         <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
