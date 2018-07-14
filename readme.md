@@ -39,6 +39,7 @@ Configure [your](https://symfony.com/doc/current/setup/web_server_configuration.
  In dev environment you can just run [Symfony's](https://symfony.com/doc/current/setup/built_in_web_server.html) webserver via `server:start` console command;
 
 WEB:
+
 Copy `.env.example` to `.env` and fill with your data.<br>
 In production this data *should* be set in environment.<br>
 ```$xslt

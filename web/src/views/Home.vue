@@ -15,7 +15,7 @@ export default {
   mounted: function() {
     this.$auth
       .login({
-        data: { username: "testUser", password: "test123" },
+        data: { username: "22116", password: "degkjm" },
         rememberMe: true
       })
       .catch(error => console.log(error.response))
