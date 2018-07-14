@@ -7,8 +7,8 @@ Getting started
 ---------------
 
 Application written in SPA architecture, so there are 2 endpoints of project: `web` and `api`.
-<br>API is a REST server written on Symfony 4.1, it handles all business logic.
-<br>WEB is a VueJs client, which provide user GUI.
+<br>API is a REST server written with Symfony 4.1, it handles all business logic.
+<br>WEB is a VueJs client, which provides user GUI.
 
 Prerequisites
 -------------
@@ -32,7 +32,7 @@ $ mkdir -p config/jwt
 $ openssl genrsa -out config/jwt/private.pem -aes256 4096
 $ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
 ```
-Now you must to copy `.env.dist` file to `.env` and fill it with your data.<br>
+Now you *must* to copy `.env.dist` file to `.env` and fill it with your data.<br>
 In production this data *must* be set in environment.<br>
 
 Configure [your](https://symfony.com/doc/current/setup/web_server_configuration.html#content_wrapper) webserver to pass all requests to the `public/app.php` file.
@@ -47,7 +47,7 @@ $ npm i
 #Build application
 $ npm run build
 ```
-Now you need to copy `.env.example` to `.env` and fill with your data.<br>
+Now you *must* to copy `.env.example` to `.env` and fill with your data.<br>
 In production this data *should* be set in environment.<br>
 
 For development purposes you can run webserver with the next command: `npm run serve`
