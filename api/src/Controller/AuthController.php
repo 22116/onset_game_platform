@@ -50,8 +50,7 @@ class AuthController extends FOSRestController
      */
     public function logout(ParamFetcherInterface $fetcher): View
     {
-        /** @var RefreshTokenManagerInterface $manager */
-        $manager = $this->get('gesdinet.jwtrefreshtoken.refresh_token_manager');
+        $manager = $this->getRefreshTokenManager();
         $token = $manager->get($fetcher->get('refresh_token'));
 
         if (null !== $token) {
@@ -72,5 +71,13 @@ class AuthController extends FOSRestController
     public function resetting(): void
     {
         //TODO: save new password with token received from email
+    }
+
+    /**
+     * @return RefreshTokenManagerInterface|object
+     */
+    private function getRefreshTokenManager(): RefreshTokenManagerInterface
+    {
+        return $this->get('gesdinet.jwtrefreshtoken.refresh_token_manager');
     }
 }
