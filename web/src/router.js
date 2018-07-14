@@ -2,6 +2,8 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
+import Login from "./views/Login";
+import page404 from "./views/Page404";
 
 Vue.use(Router);
 
@@ -15,7 +17,19 @@ export default new Router({
     {
       path: "/about",
       name: "about",
-      component: About
+      component: About,
+      meta: { auth: true }
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login,
+      meta: { auth: false }
+    },
+    {
+      path: "/404",
+      name: "404",
+      component: page404
     }
   ],
   mode: "history"

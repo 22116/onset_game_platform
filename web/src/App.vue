@@ -2,7 +2,9 @@
   <div id="app" class="container-fluid">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">About</router-link> |
+      <router-link v-if="!$auth.check()" to="/login">Login</router-link>
+      <a v-if="$auth.check()" href="/" @click.prevent="logout">Logout</a>
     </div>
     <div v-if="$auth.ready()">
       <router-view></router-view>
@@ -13,6 +15,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout: function() {
+      this.$auth.logout();
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 .loader {

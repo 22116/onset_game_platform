@@ -6,6 +6,7 @@ use App\Entity\User;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
+use FOS\RestBundle\View\View;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use FOS\UserBundle\Form\Type\UsernameFormType;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
@@ -41,15 +42,25 @@ class AuthController extends FOSRestController
     }
 
     /**
+     * @Rest\View()
      * @Rest\Post("/logout")
      * @Rest\RequestParam(name="refresh_token", nullable=false, description="Refresh token to dump")
      * @param ParamFetcherInterface $fetcher
-     * @param RefreshTokenManagerInterface $manager
+     * @return View
      */
-    public function logout(ParamFetcherInterface $fetcher, RefreshTokenManagerInterface $manager): void
+    public function logout(ParamFetcherInterface $fetcher): View
     {
+        /** @var RefreshTokenManagerInterface $manager */
+        $manager = $this->get('gesdinet.jwtrefreshtoken.refresh_token_manager');
         $token = $manager->get($fetcher->get('refresh_token'));
-        $manager->delete($token);
+
+        if (null !== $token) {
+            $manager->delete($token);
+        } else {
+            return $this->view("failed", 400);
+        }
+
+        return $this->view("success");
     }
 
     public function forgotPassword(): void

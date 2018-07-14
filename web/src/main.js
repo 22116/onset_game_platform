@@ -23,32 +23,32 @@ Vue.use(VueAuth, {
   http: webSanovaHttp,
   router: webSanovaRouter,
   tokenStore: ["localStorage", "cookie"],
-  tokenDefaultName: "T_D_AU",
+  tokenDefaultName: "T_S_AU",
   rolesVar: "roles",
   loginData: {
-    url: pathJoin("/api/login_check"),
+    url: pathJoin("/login_check"),
     method: "POST",
     redirect: "/",
     fetchUser: false
   },
   registerData: {
-    url: pathJoin("/api/auth/register"),
+    url: pathJoin("/auth/register"),
     method: "POST",
     redirect: "/login"
   },
   logoutData: {
-    url: pathJoin("/api/auth/logout"),
+    url: pathJoin("/auth/logout"),
     method: "POST",
     redirect: "/",
     makeRequest: true
   },
   fetchData: {
-    url: pathJoin("/api/user/current"),
+    url: pathJoin("/user/current"),
     method: "GET",
     enabled: true
   },
   refreshData: {
-    url: pathJoin("/api/token/refresh"),
+    url: pathJoin("/token/refresh"),
     method: "POST",
     enabled: true,
     interval: 5
