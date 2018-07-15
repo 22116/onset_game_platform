@@ -26,7 +26,7 @@ API:
 $ cd ./api
 #Install deps. Add --no-dev option in production
 composer install
-$ php bin/console migrations:migrate --allow-no-migration -n
+$ php bin/console doctrine:migrations:migrate --allow-no-migration -n
 #Generate RSA keys for JWT tokens. This step can be skiped in development, as there are already provided some test keys
 $ mkdir -p config/jwt
 $ openssl genrsa -out config/jwt/private.pem -aes256 4096

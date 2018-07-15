@@ -28,16 +28,16 @@ export default new Router({
       meta: { auth: false }
     },
     {
-      path: "/404",
-      name: "404",
-      component: page404
-    },
-    {
       path: "/register",
       name: "register",
       component: SignUp,
       meta: { auth: false }
-    }
+    },
+    {
+      path: "/404",
+      name: "404",
+      component: page404
+    },
   ],
   mode: "history"
 });
