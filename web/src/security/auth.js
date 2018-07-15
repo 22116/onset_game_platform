@@ -23,6 +23,9 @@ export default {
     } else if (isLogout) {
       attachJWT(this, req, tokens);
       attachRefresh(this, req, tokens);
+      store.dispatch("init", {
+        token: null
+      });
     } else {
       attachJWT(this, req, tokens);
     }
