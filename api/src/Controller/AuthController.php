@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
+use App\Manager\UserManagerInterface as AppUserManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -15,7 +16,6 @@ use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\Manager\UserManagerInterface as AppUserManagerInterface;
 
 /**
  * @Rest\Route("/api/auth")
@@ -35,8 +35,8 @@ class AuthController extends FOSRestController
         Request $request,
         TokenGeneratorInterface $tokenGenerator,
         UserManagerInterface $userManager,
-        AppUserManagerInterface $appUerManager)
-    {
+        AppUserManagerInterface $appUerManager
+    ) {
         $user = $userManager->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
 
@@ -86,17 +86,6 @@ class AuthController extends FOSRestController
         //TODO: save new password with token received from email
     }
 
-    /**
-     * @return MailerInterface|object
-     */
-    private function getMailer(): MailerInterface
-    {
-        return $this->get('fos_user.mailer.default');
-    }
-
-    /**
-     * @return RefreshTokenManagerInterface|object
-     */
     private function getRefreshTokenManager(): RefreshTokenManagerInterface
     {
         return $this->get('gesdinet.jwtrefreshtoken.refresh_token_manager');

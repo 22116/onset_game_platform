@@ -32,7 +32,7 @@ import VueRecaptcha from "vue-recaptcha";
 export default {
   name: "SignUp",
   components: {
-      VueRecaptcha
+    VueRecaptcha
   },
   data() {
     return {
@@ -49,29 +49,31 @@ export default {
   methods: {
     submit: function() {
       let that = this;
-      this.$auth.register({
-        data: {
-          "email": this.email,
-          "plainPassword": {
-            first: this.password,
-            second: this.passwordRepeat
+      this.$auth
+        .register({
+          data: {
+            email: this.email,
+            plainPassword: {
+              first: this.password,
+              second: this.passwordRepeat
+            },
+            "g-recaptcha-response": this.recaptchaResponse
           },
-          "g-recaptcha-response": this.recaptchaResponse
-        },
-        rememberMe: this.rememberMe,
-        redirect: false
-      }).then(function (req) {
-        if (req.status === 200)
-          that.showConfirm = true;
-      }).catch(function (req) {
-        //TODO: validation parser component/module
-      });
+          rememberMe: this.rememberMe,
+          redirect: false
+        })
+        .then(function(req) {
+          if (req.status === 200) that.showConfirm = true;
+        })
+        .catch(function(req) {
+          //TODO: validation parser component/module
+        });
     },
-    onVerify: function (res) {
+    onVerify: function(res) {
       this.recaptchaResponse = res;
       this.verified = true;
     },
-    onExpire: function () {
+    onExpire: function() {
       this.verified = false;
     }
   }

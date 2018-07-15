@@ -46,6 +46,7 @@ class User extends BaseUser
      */
     protected $plainPassword;
 
+    /** {@inheritdoc} */
     public function setEmail($email)
     {
         $this->username = $email;

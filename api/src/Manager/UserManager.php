@@ -6,7 +6,6 @@ use FOS\UserBundle\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface as BaseUserManager;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
-use Psr\Log\LoggerInterface;
 
 class UserManager implements UserManagerInterface
 {
@@ -19,20 +18,15 @@ class UserManager implements UserManagerInterface
     /** @var BaseUserManager */
     private $userManager;
 
-    /** @var LoggerInterface */
-    private $logger;
-
 
     public function __construct(
         BaseUserManager $userManager,
         TokenGeneratorInterface $tokenGenerator,
-        MailerInterface $mailer,
-        LoggerInterface $logger
+        MailerInterface $mailer
     ) {
         $this->userManager = $userManager;
         $this->tokenGenerator = $tokenGenerator;
         $this->mailer = $mailer;
-        $this->logger = $logger;
     }
 
     public function sendEmailConfirmation(UserInterface $user): void
@@ -44,7 +38,7 @@ class UserManager implements UserManagerInterface
     public function sendResettingEmail(UserInterface $user): void
     {
         $user->setConfirmationToken($this->tokenGenerator->generateToken());
-        $user->setPasswordRequestedAt((new \DateTime())->getTimestamp());
+        $user->setPasswordRequestedAt(new \DateTime());
         $this->userManager->updateUser($user);
         $this->mailer->sendResettingEmailMessage($user);
     }
