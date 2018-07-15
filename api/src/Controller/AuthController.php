@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Form\RegistrationFormType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
-use FOS\UserBundle\Form\Type\RegistrationFormType;
 use FOS\UserBundle\Form\Type\UsernameFormType;
+use FOS\UserBundle\Mailer\MailerInterface;
+use FOS\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\UserManagerInterface;
+use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Manager\UserManagerInterface as AppUserManagerInterface;
 
 /**
  * @Rest\Route("/api/auth")
@@ -22,19 +26,28 @@ class AuthController extends FOSRestController
      * @Rest\View()
      * @Rest\Post("/register")
      * @param Request $request
-     * @return User|FormInterface
+     * @param TokenGeneratorInterface $tokenGenerator
+     * @param UserManagerInterface $userManager
+     * @param AppUserManagerInterface $appUerManager
+     * @return UserInterface|FormInterface
      */
-    public function register(Request $request)
+    public function register(
+        Request $request,
+        TokenGeneratorInterface $tokenGenerator,
+        UserManagerInterface $userManager,
+        AppUserManagerInterface $appUerManager)
     {
-        $user = User::create();
+        $user = $userManager->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
 
         $form->submit($request->request->getIterator()->getArrayCopy());
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $user->setEnabled(false);
+            $user->setUsername($user->getEmail());
+            $user->setConfirmationToken($tokenGenerator->generateToken());
+            $userManager->updateUser($user);
+            $appUerManager->sendEmailConfirmation($user);
             return $user;
         }
 
@@ -71,6 +84,14 @@ class AuthController extends FOSRestController
     public function resetting(): void
     {
         //TODO: save new password with token received from email
+    }
+
+    /**
+     * @return MailerInterface|object
+     */
+    private function getMailer(): MailerInterface
+    {
+        return $this->get('fos_user.mailer.default');
     }
 
     /**

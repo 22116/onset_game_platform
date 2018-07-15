@@ -18,8 +18,7 @@ export default {
   },
   registerData: {
     url: apiJoin("/auth/register"),
-    method: "POST",
-    redirect: "/login"
+    method: "POST"
   },
   logoutData: {
     url: apiJoin("/auth/logout"),

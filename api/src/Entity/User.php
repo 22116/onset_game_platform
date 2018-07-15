@@ -4,12 +4,15 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
+ * @UniqueEntity("email")
  */
 class User extends BaseUser
 {
@@ -24,9 +27,6 @@ class User extends BaseUser
 
     /**
      * @Groups({"API"})
-     * @Assert\NotBlank()
-     * @Assert\Length(min="6")
-     * @Assert\Regex(pattern="/^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/")
      * @var string
      */
     protected $username;
@@ -45,6 +45,12 @@ class User extends BaseUser
      * @var string|null
      */
     protected $plainPassword;
+
+    public function setEmail($email)
+    {
+        $this->username = $email;
+        return parent::setEmail($email);
+    }
 
     public static function create(): User
     {

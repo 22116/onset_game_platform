@@ -8,3 +8,7 @@ gesdinet_jwt_refresh_token:
 app:
     resource: ../src/Controller/
     type: rest
+
+fos_user_registration_confirm:
+    path: /confirmation
+    host: localhost

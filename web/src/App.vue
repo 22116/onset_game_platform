@@ -3,7 +3,10 @@
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link> |
-      <router-link v-if="!$auth.check()" to="/login">Login</router-link>
+      <span v-if="!$auth.check()">
+        <router-link  to="/login">Login</router-link> |
+        <router-link  to="/register">Sign Up</router-link>
+      </span>
       <a v-if="$auth.check()" href="/" @click.prevent="logout">Logout</a>
     </div>
     <div v-if="$auth.ready()">

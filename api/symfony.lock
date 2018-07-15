@@ -62,6 +62,9 @@
     "egulias/email-validator": {
         "version": "2.1.4"
     },
+    "excelwebzone/recaptcha-bundle": {
+        "version": "v1.5.11"
+    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -76,6 +79,15 @@
     },
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v0.4.0"
+    },
+    "google/recaptcha": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.1",
+            "ref": "ad1889cf16aa84af78e818710760546d2c45f69c"
+        }
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -305,6 +317,9 @@
     "symfony/polyfill-mbstring": {
         "version": "v1.8.0"
     },
+    "symfony/polyfill-php72": {
+        "version": "v1.8.0"
+    },
     "symfony/process": {
         "version": "v4.1.1"
     },
@@ -372,6 +387,9 @@
         }
     },
     "symfony/validator": {
+        "version": "v4.1.1"
+    },
+    "symfony/var-dumper": {
         "version": "v4.1.1"
     },
     "symfony/web-server-bundle": {

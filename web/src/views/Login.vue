@@ -4,7 +4,7 @@
             <form @submit.prevent="submit">
                 <div class="form-group">
                     <label for="email">Email address:</label>
-                    <input name="username" v-model="username" type="text" class="form-control" id="email">
+                    <input name="username" v-model="email" type="email" class="form-control" id="email">
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
@@ -26,7 +26,7 @@ export default {
   name: "Login",
   data() {
     return {
-      username: null,
+      email: null,
       password: null,
       rememberMe: false
     };
@@ -34,7 +34,7 @@ export default {
   methods: {
     submit: function() {
       this.$auth.login({
-        data: { username: this.username, password: this.password },
+        data: { username: this.email, password: this.password },
         rememberMe: this.rememberMe
       });
     }

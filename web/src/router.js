@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import Login from "./views/Login";
 import page404 from "./views/Page404";
+import SignUp from "./views/SignUp";
 
 Vue.use(Router);
 
@@ -30,6 +31,12 @@ export default new Router({
       path: "/404",
       name: "404",
       component: page404
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: SignUp,
+      meta: { auth: false }
     }
   ],
   mode: "history"

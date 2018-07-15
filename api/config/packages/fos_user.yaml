@@ -3,5 +3,7 @@ fos_user:
     firewall_name: main
     user_class: App\Entity\User
     from_email:
-        address: swiftmailer['username']
-        sender_name: swiftmailer['username']
+        address: '%mailer_user%'
+        sender_name: '%mailer_user%'
+    service:
+        mailer: fos_user.mailer.twig_swift
