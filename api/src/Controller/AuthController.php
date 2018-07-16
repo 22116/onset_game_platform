@@ -9,10 +9,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
 use FOS\UserBundle\Form\Type\UsernameFormType;
-use FOS\UserBundle\Mailer\MailerInterface;
-use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Util\TokenGeneratorInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,14 +23,12 @@ class AuthController extends FOSRestController
      * @Rest\View()
      * @Rest\Post("/register")
      * @param Request $request
-     * @param TokenGeneratorInterface $tokenGenerator
      * @param UserManagerInterface $userManager
      * @param AppUserManagerInterface $appUerManager
-     * @return UserInterface|FormInterface
+     * @return FormInterface|View
      */
     public function register(
         Request $request,
-        TokenGeneratorInterface $tokenGenerator,
         UserManagerInterface $userManager,
         AppUserManagerInterface $appUerManager
     ) {
@@ -45,10 +40,9 @@ class AuthController extends FOSRestController
         if ($form->isValid()) {
             $user->setEnabled(false);
             $user->setUsername($user->getEmail());
-            $user->setConfirmationToken($tokenGenerator->generateToken());
-            $userManager->updateUser($user);
             $appUerManager->sendEmailConfirmation($user);
-            return $user;
+            $userManager->updateUser($user);
+            return $this->view(null, 200);
         }
 
         return $form;
@@ -69,10 +63,33 @@ class AuthController extends FOSRestController
         if (null !== $token) {
             $manager->delete($token);
         } else {
-            return $this->view("failed", 400);
+            return $this->view(null,400);
         }
 
-        return $this->view("success");
+        return $this->view(null, 200);
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Post("/register/confirm")
+     * @Rest\RequestParam(name="token", nullable=false, description="Registration confirmation token")
+     * @param ParamFetcherInterface $fetcher
+     * @param UserManagerInterface $userManager
+     * @return View
+     */
+    public function confirmEmail(ParamFetcherInterface $fetcher, UserManagerInterface $userManager): View
+    {
+        $token = $fetcher->get('token');
+        $user = $userManager->findUserByConfirmationToken($token);
+
+        if (null !== $user) {
+            $user->setEnabled(true);
+            $user->setConfirmationToken(null);
+            $userManager->updateUser($user);
+            return $this->view(null, 200);
+        }
+
+        return $this->view(null, 400);
     }
 
     public function forgotPassword(): void

@@ -2,7 +2,7 @@
 
 namespace App\Manager;
 
-use FOS\UserBundle\Mailer\MailerInterface;
+use App\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface as BaseUserManager;
 use FOS\UserBundle\Util\TokenGeneratorInterface;

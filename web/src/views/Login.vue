@@ -1,5 +1,7 @@
 <template>
     <div class="container">
+        <div v-if="confirmStatus === true" class="alert alert-success">Email was confirmed. You can login now.</div>
+        <div v-if="confirmStatus === false" class="alert alert-danger">There are no users attached to this account. Please try <router-link to="/register">Sign Up</router-link> again.</div>
         <div class="row justify-content-center">
             <form @submit.prevent="submit">
                 <div class="form-group">
@@ -22,14 +24,32 @@
 </template>
 
 <script>
+import { apiJoin } from "../utils/path";
+
 export default {
   name: "Login",
   data() {
     return {
+      confirmStatus: null,
       email: null,
       password: null,
       rememberMe: false
     };
+  },
+  mounted: function() {
+    let that = this;
+    let token = this.$route.params.confirmationToken;
+    if (undefined !== token){
+      this.axios.post(apiJoin("/auth/register/confirm"), {
+        token: token
+      })
+      .then(function () {
+        that.confirmStatus = true;
+      })
+      .catch(function () {
+        that.confirmStatus = false;
+      })
+    }
   },
   methods: {
     submit: function() {

@@ -25,7 +25,13 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login,
-      meta: { auth: false }
+      meta: { auth: false },
+      children: [
+        {
+          path: 'confirm/:confirmationToken',
+          component: Login
+        }
+      ]
     },
     {
       path: "/register",
@@ -34,10 +40,10 @@ export default new Router({
       meta: { auth: false }
     },
     {
-      path: "/404",
+      path: "*",
       name: "404",
       component: page404
-    },
+    }
   ],
   mode: "history"
 });
