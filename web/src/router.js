@@ -5,10 +5,12 @@ import About from "./views/About.vue";
 import Login from "./views/Login";
 import page404 from "./views/Page404";
 import SignUp from "./views/SignUp";
+import Resetting from "./views/Resetting";
+import ResettingConfirmed from "./views/ResettingConfirmed";
 
 Vue.use(Router);
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: "/",
@@ -25,13 +27,27 @@ export default new Router({
       path: "/login",
       name: "login",
       component: Login,
-      meta: { auth: false },
+      meta: {
+        title: "Mintme | Login",
+        auth: false
+      },
       children: [
         {
           path: 'confirm/:confirmationToken',
           component: Login
         }
       ]
+    },
+    {
+      path: "/resetting",
+      name: "resetting",
+      component: Resetting,
+      meta: { auth: false },
+    },
+    {
+      path: '/resetting/confirm/:confirmationToken',
+      name: "resseting_confirm",
+      component: ResettingConfirmed
     },
     {
       path: "/register",
@@ -47,3 +63,14 @@ export default new Router({
   ],
   mode: "history"
 });
+
+router.beforeEach((to, from, next) => {
+  if (undefined !== to.meta.title) {
+    document.title = to.meta.title;
+  } else {
+    document.title = "Mintme";
+  }
+  next()
+});
+
+export default router;

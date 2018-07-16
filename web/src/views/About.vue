@@ -6,12 +6,10 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  export default {
-    computed: {
-      ...mapGetters([
-        "jwtUsername"
-      ])
-    }
+import { mapGetters } from "vuex";
+export default {
+  computed: {
+    ...mapGetters(["jwtUsername"])
   }
+};
 </script>

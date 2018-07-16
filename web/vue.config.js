@@ -13,7 +13,7 @@ module.exports = {
       }),
       new PrerenderSPAPlugin({
         staticDir: path.join(__dirname, "dist"),
-        routes: ["/", "/about"]
+        routes: ["/", "/about", "/login", "/register", "/resseting"]
       })
     ]
   }

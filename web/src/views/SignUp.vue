@@ -65,7 +65,7 @@ export default {
         .then(function(req) {
           if (req.status === 200) that.showConfirm = true;
         })
-        .catch(function(req) {
+        .catch(function() {
           //TODO: validation parser component/module
         });
     },

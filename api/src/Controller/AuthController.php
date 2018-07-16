@@ -8,7 +8,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\View\View;
-use FOS\UserBundle\Form\Type\UsernameFormType;
+use FOS\UserBundle\Form\Type\ResettingFormType;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
@@ -24,13 +24,13 @@ class AuthController extends FOSRestController
      * @Rest\Post("/register")
      * @param Request $request
      * @param UserManagerInterface $userManager
-     * @param AppUserManagerInterface $appUerManager
+     * @param AppUserManagerInterface $appUserManager
      * @return FormInterface|View
      */
     public function register(
         Request $request,
         UserManagerInterface $userManager,
-        AppUserManagerInterface $appUerManager
+        AppUserManagerInterface $appUserManager
     ) {
         $user = $userManager->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -40,7 +40,7 @@ class AuthController extends FOSRestController
         if ($form->isValid()) {
             $user->setEnabled(false);
             $user->setUsername($user->getEmail());
-            $appUerManager->sendEmailConfirmation($user);
+            $appUserManager->sendEmailConfirmation($user);
             $userManager->updateUser($user);
             return $this->view(null, 200);
         }
@@ -92,15 +92,60 @@ class AuthController extends FOSRestController
         return $this->view(null, 400);
     }
 
-    public function forgotPassword(): void
-    {
-        $form = $this->createForm(UsernameFormType::class);
-        //TODO: find user and send email
+    /**
+     * @Rest\View()
+     * @Rest\Post("/resetting")
+     * @Rest\RequestParam(name="email", nullable=false, description="User email")
+     * @param ParamFetcherInterface $fetcher
+     * @param UserManagerInterface $userManager
+     * @param AppUserManagerInterface $appUserManager
+     * @return View
+     */
+    public function resetting(
+        ParamFetcherInterface $fetcher,
+        UserManagerInterface $userManager,
+        AppUserManagerInterface $appUserManager
+    ): View {
+        $email = $fetcher->get('email');
+        $user = $userManager->findUserByEmail($email);
+
+        if (null !== $user) {
+            $appUserManager->sendResettingEmail($user);
+        }
+
+        return $this->view(null, 200);
     }
 
-    public function resetting(): void
+    /**
+     * @Rest\View()
+     * @Rest\Post("/resetting/confirm")
+     * @Rest\RequestParam(name="data", nullable=false, description="form-data")
+     * @Rest\RequestParam(name="token", nullable=false, description="token")
+     * @param ParamFetcherInterface $fetcher
+     * @param UserManagerInterface $userManager
+     * @return View|FormInterface
+     */
+    public function confirmPassword(ParamFetcherInterface $fetcher, UserManagerInterface $userManager)
     {
-        //TODO: save new password with token received from email
+        $data = $fetcher->get('data');
+        $token = $fetcher->get('token');
+
+        $user = $userManager->findUserByConfirmationToken($token);
+        $limit = 2 * 3600;
+
+        if (null !== $user && $user->isPasswordRequestNonExpired($limit)) {
+            $form = $this->createForm(ResettingFormType::class, $user);
+            $form->submit($data);
+
+            if ($form->isValid()) {
+                $userManager->updatePassword($user);
+                return $this->view(null, 200);
+            }
+
+            return $form;
+        }
+
+        return $this->view(null, 400);
     }
 
     private function getRefreshTokenManager(): RefreshTokenManagerInterface

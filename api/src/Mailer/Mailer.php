@@ -44,7 +44,7 @@ class Mailer implements MailerInterface
     /** {@inheritdoc} */
     public function sendResettingEmailMessage(UserInterface $user)
     {
-        $url = $this->host->getHost().'/resseting/'.$user->getConfirmationToken();
+        $url = $this->host->getHost().'/resetting/confirm/'.$user->getConfirmationToken();
         $rendered = $this->templating->render('mails/resseting.txt.twig', [
             'user' => $user,
             'confirmationUrl' => $url,
