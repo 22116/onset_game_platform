@@ -47,7 +47,8 @@ let router = new Router({
     {
       path: "/resetting/confirm/:confirmationToken",
       name: "resseting_confirm",
-      component: ResettingConfirmed
+      component: ResettingConfirmed,
+      meta: { auth: false }
     },
     {
       path: "/register",
