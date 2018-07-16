@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Form;
-
 
 use App\Entity\User;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
@@ -16,21 +14,21 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('email', EmailType::class, ['required' => true])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => 'Passwords must be equal'
+                'invalid_message' => 'Passwords must be equal',
             ])
             ->add('g-recaptcha-response', EWZRecaptchaType::class, [
                 'mapped' => false,
-                'constraints' => [ new IsTrue() ]
+                'constraints' => [ new IsTrue() ],
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('data_class', User::class);
     }

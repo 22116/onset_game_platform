@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Mailer;
-
 
 use App\Utils\ClientHostInterface;
 use FOS\UserBundle\Model\UserInterface;
@@ -38,7 +36,7 @@ class Mailer implements MailerInterface
             'user' => $user,
             'confirmationUrl' => $url,
         ]);
-        $this->sendEmailMessage($rendered, $this->mailUser, (string) $user->getEmail());
+        $this->sendEmailMessage($rendered, $this->mailUser, $user->getEmail());
     }
 
     /** {@inheritdoc} */
@@ -49,7 +47,7 @@ class Mailer implements MailerInterface
             'user' => $user,
             'confirmationUrl' => $url,
         ]);
-        $this->sendEmailMessage($rendered, $this->mailUser, (string) $user->getEmail());
+        $this->sendEmailMessage($rendered, $this->mailUser, $user->getEmail());
     }
 
     /**
@@ -61,7 +59,7 @@ class Mailer implements MailerInterface
     {
         // Render the email, use the first line as the subject, and the rest as the body
         $renderedLines = explode("\n", trim($renderedTemplate));
-        $subject = array_shift($renderedLines);
+        $subject = array_shift($renderedLines) ?? "";
         $body = implode("\n", $renderedLines);
 
         $message = (new \Swift_Message())

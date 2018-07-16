@@ -1,13 +1,12 @@
 <?php
 
-
 namespace App\Utils;
-
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ClientHost implements ClientHostInterface
 {
+    /** @var string */
     private $host;
 
     public function __construct(ParameterBagInterface $bag)

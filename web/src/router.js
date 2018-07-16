@@ -33,7 +33,7 @@ let router = new Router({
       },
       children: [
         {
-          path: 'confirm/:confirmationToken',
+          path: "confirm/:confirmationToken",
           component: Login
         }
       ]
@@ -42,10 +42,10 @@ let router = new Router({
       path: "/resetting",
       name: "resetting",
       component: Resetting,
-      meta: { auth: false },
+      meta: { auth: false }
     },
     {
-      path: '/resetting/confirm/:confirmationToken',
+      path: "/resetting/confirm/:confirmationToken",
       name: "resseting_confirm",
       component: ResettingConfirmed
     },
@@ -70,7 +70,7 @@ router.beforeEach((to, from, next) => {
   } else {
     document.title = "Mintme";
   }
-  next()
+  next();
 });
 
 export default router;
