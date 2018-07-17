@@ -1,49 +1,38 @@
 <template>
   <div class="row justify-content-center">
-    <form v-if="!showSuccessAlert" @submit.prevent="submit">
+    <VueForm v-if="!isAlertShown" action="/auth/resetting/confirm" method="PATCH" data-prefix="data" @onSuccess="showSuccessAlert">
       <div class="form-group">
         <label for="pwd">Password:</label>
-        <input v-model="password" type="password" class="form-control" id="pwd">
+        <input name="data[plainPassword][first]" type="password" class="form-control" id="pwd">
       </div>
       <div class="form-group">
         <label for="pwd">Repeat Password:</label>
-        <input v-model="passwordRepeat" type="password" class="form-control" id="rpwd">
+        <input name="data[plainPassword][second]" type="password" class="form-control" id="rpwd">
       </div>
+      <input type="hidden" name="token" :value="confirmToken" />
       <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-    <div v-if="showSuccessAlert">
+    </VueForm>
+    <div v-if="isAlertShown">
       <p>Your password was successfully changed.</p>
     </div>
   </div>
 </template>
 
 <script>
-import { apiJoin } from "../utils/path";
+import VueForm from "../components/VueForm"
 
 export default {
   name: "ResettingConfirmed",
+  components: { VueForm },
   data() {
     return {
-      showSuccessAlert: false,
-      password: null,
-      passwordRepeat: null,
+      isAlertShown: false,
       confirmToken: this.$route.params.confirmationToken
     };
   },
   methods: {
-    submit: function() {
-      let that = this;
-      this.axios
-        .patch(apiJoin("/auth/resetting/confirm"), {
-          data: {
-            plainPassword: {
-              first: this.password,
-              second: this.passwordRepeat
-            }
-          },
-          token: this.confirmToken
-        })
-        .then(() => (that.showSuccessAlert = true));
+    showSuccessAlert: function () {
+      this.isAlertShown = true;
     }
   }
 };
