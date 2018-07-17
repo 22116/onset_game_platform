@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
-use App\Manager\UserManagerInterface as AppUserManagerInterface;
+
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -13,6 +13,7 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Utils\MailerDispatcherInterface;
 
 /**
  * @Rest\Route("/api/auth")
@@ -24,13 +25,13 @@ class AuthController extends FOSRestController
      * @Rest\Post("/register")
      * @param Request $request
      * @param UserManagerInterface $userManager
-     * @param AppUserManagerInterface $appUserManager
+     * @param MailerDispatcherInterface $mailerDispatcher
      * @return FormInterface|View
      */
     public function register(
         Request $request,
         UserManagerInterface $userManager,
-        AppUserManagerInterface $appUserManager
+        MailerDispatcherInterface $mailerDispatcher
     ) {
         $user = $userManager->createUser();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -40,7 +41,7 @@ class AuthController extends FOSRestController
         if ($form->isValid()) {
             $user->setEnabled(false);
             $user->setUsername($user->getEmail());
-            $appUserManager->sendEmailConfirmation($user);
+            $mailerDispatcher->sendEmailConfirmation($user);
             $userManager->updateUser($user);
             return $this->view(null, 200);
         }
@@ -98,19 +99,19 @@ class AuthController extends FOSRestController
      * @Rest\RequestParam(name="email", nullable=false, description="User email")
      * @param ParamFetcherInterface $fetcher
      * @param UserManagerInterface $userManager
-     * @param AppUserManagerInterface $appUserManager
+     * @param MailerDispatcherInterface $mailerDispatcher
      * @return View
      */
     public function resetting(
         ParamFetcherInterface $fetcher,
         UserManagerInterface $userManager,
-        AppUserManagerInterface $appUserManager
+        MailerDispatcherInterface $mailerDispatcher
     ): View {
         $email = $fetcher->get('email');
         $user = $userManager->findUserByEmail($email);
 
         if (null !== $user) {
-            $appUserManager->sendResettingEmail($user);
+            $mailerDispatcher->sendResettingEmail($user);
         }
 
         return $this->view(null, 200);

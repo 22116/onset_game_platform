@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Manager;
+namespace App\Utils;
 
 use App\Mailer\MailerInterface;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface as BaseUserManager;
 use FOS\UserBundle\Util\TokenGeneratorInterface;
 
-class UserManager implements UserManagerInterface
+class MailerDispatcher implements MailerDispatcherInterface
 {
     /** @var MailerInterface */
     private $mailer;
