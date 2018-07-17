@@ -63,7 +63,7 @@ class AuthController extends FOSRestController
         if (null !== $token) {
             $manager->delete($token);
         } else {
-            return $this->view(null,400);
+            return $this->view(null, 400);
         }
 
         return $this->view(null, 200);
@@ -118,7 +118,7 @@ class AuthController extends FOSRestController
 
     /**
      * @Rest\View()
-     * @Rest\Post("/resetting/confirm")
+     * @Rest\Patch("/resetting/confirm")
      * @Rest\RequestParam(name="data", nullable=false, description="form-data")
      * @Rest\RequestParam(name="token", nullable=false, description="token")
      * @param ParamFetcherInterface $fetcher

@@ -44,12 +44,13 @@ export default {
   mounted: function() {
     let that = this;
     let token = this.$route.params.confirmationToken;
-    if (undefined !== token){
-      this.axios.post(apiJoin("/auth/register/confirm"), {
-        token: token
-      })
-      .then(() => that.confirmStatus = true)
-      .catch(() => that.confirmStatus = false);
+    if (undefined !== token) {
+      this.axios
+        .post(apiJoin("/auth/register/confirm"), {
+          token: token
+        })
+        .then(() => (that.confirmStatus = true))
+        .catch(() => (that.confirmStatus = false));
     }
   },
   methods: {

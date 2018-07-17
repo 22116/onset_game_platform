@@ -18,22 +18,23 @@
 </template>
 
 <script>
-  import { apiJoin } from "../utils/path";
+import { apiJoin } from "../utils/path";
 
-  export default {
-    name: "ResettingConfirmed",
-    data() {
-      return {
-        showSuccessAlert: false,
-        password: null,
-        passwordRepeat: null,
-        confirmToken: this.$route.params.confirmationToken
-      };
-    },
-    methods: {
-      submit: function () {
-        let that = this;
-        this.axios.post(apiJoin('/auth/resetting/confirm'), {
+export default {
+  name: "ResettingConfirmed",
+  data() {
+    return {
+      showSuccessAlert: false,
+      password: null,
+      passwordRepeat: null,
+      confirmToken: this.$route.params.confirmationToken
+    };
+  },
+  methods: {
+    submit: function() {
+      let that = this;
+      this.axios
+        .patch(apiJoin("/auth/resetting/confirm"), {
           data: {
             plainPassword: {
               first: this.password,
@@ -42,12 +43,11 @@
           },
           token: this.confirmToken
         })
-        .then(() => that.showSuccessAlert = true)
-      }
+        .then(() => (that.showSuccessAlert = true));
     }
   }
+};
 </script>
 
 <style scoped>
-
 </style>
