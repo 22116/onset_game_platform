@@ -6,6 +6,9 @@
         <div v-if="confirmStatus === false" class="alert alert-danger">
             There are no users attached to this account. Please try <router-link to="/register">Sign Up</router-link> again.
         </div>
+        <div v-if="showError" class="alert alert-danger">
+            Invalid credentials
+        </div>
         <div class="row justify-content-center">
             <form @submit.prevent="submit">
                 <div class="form-group">
@@ -38,7 +41,8 @@ export default {
       confirmStatus: null,
       email: null,
       password: null,
-      rememberMe: false
+      rememberMe: false,
+      showError: false
     };
   },
   mounted: function() {
@@ -55,9 +59,12 @@ export default {
   },
   methods: {
     submit: function() {
+      let that = this;
       this.$auth.login({
         data: { username: this.email, password: this.password },
         rememberMe: this.rememberMe
+      }).catch(function () {
+        that.showError = true;
       });
     }
   }

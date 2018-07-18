@@ -33,8 +33,8 @@
 
         if (!this.doNothing) {
           connector(this.action, this.method, data, this.isSecure)
-            .then(function () {
-              that.$emit("onSuccess");
+            .then(function (req) {
+              that.$emit("onSuccess", req);
             })
             .catch(function (error) {
               that.$emit("onFail");
@@ -71,9 +71,10 @@
       },
       clearErros: function () {
         let errors = this.$refs.form.getElementsByClassName("alert-danger");
-        _.forEach(errors, function (error) {
-          error.remove();
-        })
+
+        Array.from(errors).forEach(function (error) {
+            error.remove();
+        });
       },
       fetchErrors: function (errors, prefix = "") {
         let that = this;
