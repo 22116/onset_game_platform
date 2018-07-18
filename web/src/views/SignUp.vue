@@ -4,7 +4,7 @@
             <VueForm v-if="!showConfirm" action="/auth/register" method="POST" @onSuccess="submit">
                 <div class="form-group">
                     <label for="email">Email address:</label>
-                    <input name="email" type="email" class="form-control" id="email" />
+                    <input name="email" type="email" v-model="email" class="form-control" id="email" />
                 </div>
                 <div class="form-group">
                     <label for="pwd">Password:</label>
@@ -42,8 +42,6 @@ export default {
       sitekey: process.env.RECAPTCHA_SITEKEY,
       showConfirm: false,
       email: null,
-      password: null,
-      passwordRepeat: null,
       rememberMe: false,
       recaptchaResponse: null
     };
