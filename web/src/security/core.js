@@ -14,7 +14,7 @@ export default {
     url: apiJoin("/login_check"),
     method: "POST",
     redirect: "/",
-    fetchUser: false
+    fetchUser: true
   },
   logoutData: {
     url: apiJoin("/auth/logout"),

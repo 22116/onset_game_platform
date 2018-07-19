@@ -26,7 +26,7 @@ let router = new Router({
     },
     {
       path: "/settings",
-      name: "swttings",
+      name: "settings",
       component: Settings,
       meta: {
         auth: true,

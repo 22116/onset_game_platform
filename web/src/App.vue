@@ -9,7 +9,7 @@
       <template v-else>
         <router-link to="/about">About</router-link> |
         <router-link to="/settings">Settings</router-link> |
-        <a v-if="$auth.check()" href="/" @click.prevent="logout">Logout</a>
+        <a v-if="$auth.check()" href="/" @click.prevent="$auth.logout()">Logout</a>
       </template>
     </div>
     <div v-if="$auth.ready()">
@@ -22,13 +22,11 @@
 </template>
 
 <script>
-export default {
-  methods: {
-    logout: function() {
-      this.$auth.logout();
+  export default {
+    mounted: function () {
+      this.$auth.user();
     }
   }
-};
 </script>
 
 <style lang="scss">
