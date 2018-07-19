@@ -30,10 +30,10 @@
       <div class="card">
         <div class="card-header">Change email:</div>
         <div class="card-body">
-          <VueForm method="PATCH" action="/user/edit" @onSuccess="onProfileSuccess">
+          <VueForm method="PATCH" action="/user/edit" @onSuccess="onEmailSuccess">
             <div class="form-group">
               <label for="email">Email:</label>
-              <input name="firstName" type="text" class="form-control" id="email" :value="profile.firstName" />
+              <input name="firstName" type="text" class="form-control" id="email" :value="email" />
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
           </VueForm>
@@ -51,12 +51,16 @@
     components: { VueForm },
     data() {
       return {
+        email: this.$auth.user().email,
         profile: this.$auth.user().profile
       }
     },
     methods: {
       onProfileSuccess: function () {
         this.$toasted.show("Profile has been updated.");
+      },
+      onEmailSuccess: function () {
+        this.$toasted.show("Email has been updated.");
       }
     }
   }
