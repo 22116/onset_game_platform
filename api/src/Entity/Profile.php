@@ -61,6 +61,7 @@ class Profile
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Token", mappedBy="profile", cascade={"persist", "remove"})
+     * @Groups({"API"})
      * @var Token|null
      */
     private $token;

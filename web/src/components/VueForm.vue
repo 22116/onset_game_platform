@@ -13,8 +13,8 @@
   export default {
     name: "VueForm",
     props: {
-      action: String,
-      method: String,
+      action: { type:String, reuired: true },
+      method: { type:String, reuired: true },
       dataPrefix: String,
       isSecure: Boolean,
       doNothing: Boolean
