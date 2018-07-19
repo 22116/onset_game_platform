@@ -24,6 +24,7 @@ class Profile
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Z0-9 ]+$/")
      * @Groups({"API"})
      * @var string|null
      */
@@ -32,6 +33,7 @@ class Profile
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\NotBlank()
+     * @Assert\Regex("/^[a-zA-Z0-9 ]+$/")
      * @Groups({"API"})
      * @var string|null
      */

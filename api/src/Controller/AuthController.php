@@ -140,6 +140,8 @@ class AuthController extends FOSRestController
 
             if ($form->isValid()) {
                 $userManager->updatePassword($user);
+                $user->setConfirmationToken(null);
+                $userManager->updateUser($user);
                 return $this->view(null, 200);
             }
 
