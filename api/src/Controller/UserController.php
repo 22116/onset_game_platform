@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends FOSRestController
 {
     /**
+     * 'data' is a required wrapper for websanova auth library
+     *
      * @Rest\View()
      * @Rest\Get()
      * @return array|View
