@@ -1,16 +1,15 @@
 <?php
 
-
 namespace App\Repository;
 
-
+use App\Entity\Profile;
 use Doctrine\ORM\EntityRepository;
 use FOS\UserBundle\Model\UserInterface;
 
 class ProfileRepository extends EntityRepository
 {
-    public function getProfileByUser(UserInterface $user)
+    public function getProfileByUser(UserInterface $user): Profile
     {
-        return $this->findBy(['user' => $user->getId()])[0];
+        return $this->findOneBy(['user' => $user->getId()]);
     }
 }

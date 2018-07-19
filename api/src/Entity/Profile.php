@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -39,6 +40,7 @@ class Profile
     /**
      * @ORM\Column(type="string", nullable=true)
      * @Assert\Url()
+     * @AppAssert\IsFacebookUrl()
      * @Groups({"API"})
      * @var string|null
      */
@@ -58,82 +60,75 @@ class Profile
     protected $user;
 
     /**
-     * @return User
+     * @ORM\OneToOne(targetEntity="App\Entity\Token", mappedBy="profile", cascade={"persist", "remove"})
+     * @var Token|null
      */
-    public function getUser(): User
+    private $token;
+
+    public function getToken(): ?Token
     {
-        return $this->user;
+        return $this->token;
     }
 
-    /**
-     * @return string
-     */
+    public function setToken(?Token $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
     public function getFirstName(): ?string
     {
         return $this->firstName;
     }
 
-    /**
-     * @return string
-     */
     public function getLastName(): ?string
     {
         return $this->lastName;
     }
 
-    /**
-     * @return string
-     */
     public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @return string
-     */
     public function getFacebookUrl(): ?string
     {
         return $this->facebookUrl;
     }
 
-    /**
-     * @param User $user
-     */
-    public function setUser(User $user): void
+    public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
     }
 
-    /**
-     * @param null|string $description
-     */
-    public function setDescription(?string $description): void
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
-    /**
-     * @param null|string $facebookUrl
-     */
-    public function setFacebookUrl(?string $facebookUrl): void
+    public function setFacebookUrl(?string $facebookUrl): self
     {
         $this->facebookUrl = $facebookUrl;
+
+        return $this;
     }
 
-    /**
-     * @param null|string $firstName
-     */
-    public function setFirstName(?string $firstName): void
+    public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
-    /**
-     * @param null|string $lastName
-     */
-    public function setLastName(?string $lastName): void
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 }

@@ -16,3 +16,4 @@ parameters:
 
     excludes_analyse:
         - "%rootDir%/../../../src/Migrations/*"
+        - "%rootDir%/../../../src/Validator/Constraints/*"

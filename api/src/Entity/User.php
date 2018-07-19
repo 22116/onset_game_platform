@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="fos_user")
+ * @ORM\Table(name="user")
  * @UniqueEntity("email")
  */
 class User extends BaseUser
@@ -67,9 +67,6 @@ class User extends BaseUser
         return $this->profile;
     }
 
-    /**
-     * @param Profile $profile
-     */
     public function setProfile(Profile $profile): void
     {
         $this->profile = $profile;
