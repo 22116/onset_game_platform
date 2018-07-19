@@ -10,10 +10,15 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import VueAuth from "@websanova/vue-auth";
 import VueAuthCore from "./security/core";
+import VueToastr from "vue-toasted";
 
 Vue.router = router;
 Vue.http = axios;
 
+Vue.component('vue-toastr', VueToastr);
+Vue.use(VueToastr, {
+  duration: 800
+});
 Vue.use(VueAxios, axios);
 Vue.use(VueAuth, VueAuthCore);
 Vue.use(BootstrapVue);

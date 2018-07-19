@@ -2,17 +2,19 @@
   <div id="app" class="container-fluid">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <span v-if="!$auth.check()">
+      <template v-if="!$auth.check()">
         <router-link  to="/login">Login</router-link> |
         <router-link  to="/register">Sign Up</router-link>
-      </span>
-      <a v-if="$auth.check()" href="/" @click.prevent="logout">Logout</a>
+      </template>
+      <template v-else>
+        <router-link to="/about">About</router-link> |
+        <router-link to="/settings">Settings</router-link> |
+        <a v-if="$auth.check()" href="/" @click.prevent="logout">Logout</a>
+      </template>
     </div>
     <div v-if="$auth.ready()">
       <router-view></router-view>
     </div>
-
     <div v-if="!$auth.ready()">
       <div class="loader m-auto"></div>
     </div>

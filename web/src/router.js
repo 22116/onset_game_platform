@@ -2,11 +2,12 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
-import Login from "./views/Login";
+import Login from "./views/auth/Login";
 import page404 from "./views/Page404";
-import SignUp from "./views/SignUp";
-import Resetting from "./views/Resetting";
-import ResettingConfirmed from "./views/ResettingConfirmed";
+import SignUp from "./views/auth/SignUp";
+import Resetting from "./views/auth/Resetting";
+import ResettingConfirmed from "./views/auth/ResettingConfirmed";
+import Settings from "./views/profile/Settings";
 
 Vue.use(Router);
 
@@ -24,19 +25,13 @@ let router = new Router({
       meta: { auth: true }
     },
     {
-      path: "/login",
-      name: "login",
-      component: Login,
+      path: "/settings",
+      name: "swttings",
+      component: Settings,
       meta: {
-        title: "Mintme | Login",
-        auth: false
-      },
-      children: [
-        {
-          path: "confirm/:confirmationToken",
-          component: Login
-        }
-      ]
+        auth: true,
+        title: "Mintme | Settings"
+      }
     },
     {
       path: "/resetting",
@@ -60,6 +55,21 @@ let router = new Router({
       path: "*",
       name: "404",
       component: page404
+    },
+    {
+      path: "/login",
+      name: "login",
+      component: Login,
+      meta: {
+        title: "Mintme | Login",
+        auth: false
+      },
+      children: [
+        {
+          path: "confirm/:confirmationToken",
+          component: Login
+        }
+      ]
     }
   ],
   mode: "history"

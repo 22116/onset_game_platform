@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import VueForm from "../components/VueForm";
+import VueForm from "../../components/VueForm";
 
 export default {
   name: "Resetting",

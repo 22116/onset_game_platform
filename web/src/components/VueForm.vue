@@ -34,6 +34,7 @@
         if (!this.doNothing) {
           connector(this.action, this.method, data, this.isSecure)
             .then(function (req) {
+              that.clearErros();
               that.$emit("onSuccess", req);
             })
             .catch(function (error) {

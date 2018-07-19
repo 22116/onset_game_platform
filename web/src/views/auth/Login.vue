@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { apiJoin } from "../utils/path";
+import { apiJoin } from "../../utils/path";
 
 export default {
   name: "Login",

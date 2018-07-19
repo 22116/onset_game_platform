@@ -16,10 +16,10 @@ class UserController extends FOSRestController
     /**
      * @Rest\View()
      * @Rest\Get("/current")
-     * @return User|View
+     * @return array|View
      */
     public function getCurrentUser()
     {
-        return $this->getUser();
+        return [ 'data' => $this->getUser() ];
     }
 }

@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import VueForm from "../components/VueForm";
+import VueForm from "../../components/VueForm";
 import VueRecaptcha from "vue-recaptcha";
 
 export default {

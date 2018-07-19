@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,6 +15,16 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User extends BaseUser
 {
+    public function __construct()
+    {
+        parent::__construct();
+
+        $profile = new Profile();
+        $profile->setUser($this);
+
+        $this->setProfile($profile);
+    }
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -46,17 +55,30 @@ class User extends BaseUser
      */
     protected $plainPassword;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Profile", cascade={"persist"})
+     * @Groups({"API"})
+     * @var Profile
+     */
+    protected $profile;
+
+    public function getProfile(): Profile
+    {
+        return $this->profile;
+    }
+
+    /**
+     * @param Profile $profile
+     */
+    public function setProfile(Profile $profile): void
+    {
+        $this->profile = $profile;
+    }
+
     /** {@inheritdoc} */
     public function setEmail($email)
     {
         $this->username = $email;
         return parent::setEmail($email);
-    }
-
-    public static function create(): User
-    {
-        $user = new self();
-        $user->setRoles(['ROLE_USER']);
-        return $user;
     }
 }
