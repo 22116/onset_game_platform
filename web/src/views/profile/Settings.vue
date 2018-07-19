@@ -26,6 +26,20 @@
         </div>
       </div>
     </div>
+    <div class="row justify-content-center mt-3">
+      <div class="card">
+        <div class="card-header">Change email:</div>
+        <div class="card-body">
+          <VueForm method="PATCH" action="/user/edit" @onSuccess="onProfileSuccess">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input name="firstName" type="text" class="form-control" id="email" :value="profile.firstName" />
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </VueForm>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

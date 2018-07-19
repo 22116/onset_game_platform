@@ -15,7 +15,7 @@ class UserController extends FOSRestController
 {
     /**
      * @Rest\View()
-     * @Rest\Get("/current")
+     * @Rest\Get("")
      * @return array|View
      */
     public function getCurrentUser()
