@@ -38,14 +38,13 @@ export default {
   },
   methods: {
     submit: function() {
-      let that = this;
       this.$auth
         .login({
           data: { username: this.email, password: this.password },
           rememberMe: this.rememberMe
         })
-        .catch(function() {
-          that.showError = true;
+        .catch(() => {
+          this.showError = true;
         });
     }
   }
