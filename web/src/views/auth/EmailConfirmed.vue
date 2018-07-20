@@ -29,7 +29,9 @@ export default {
       .then(() => {
         this.confirmStatus = true;
         if (this.$auth.check()) {
-          this.$auth.logout();
+          this.$auth.logout({
+            redirect: '/login'
+          });
         }
       })
       .catch(() => (this.confirmStatus = false));
