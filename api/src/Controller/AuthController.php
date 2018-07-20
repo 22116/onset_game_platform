@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Form\RegistrationFormType;
-
+use App\Utils\MailerDispatcherInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -13,7 +13,6 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\Utils\MailerDispatcherInterface;
 
 /**
  * @Rest\Route("/api/auth")

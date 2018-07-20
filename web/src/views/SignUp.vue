@@ -34,7 +34,8 @@ import VueRecaptcha from "vue-recaptcha";
 export default {
   name: "SignUp",
   components: {
-    VueRecaptcha, VueForm
+    VueRecaptcha,
+    VueForm
   },
   data() {
     return {
@@ -48,8 +49,7 @@ export default {
   },
   methods: {
     submit: function(req) {
-      if (req.status === 200)
-        this.showConfirm = true;
+      if (req.status === 200) this.showConfirm = true;
     },
     onVerify: function(res) {
       this.recaptchaResponse = res;

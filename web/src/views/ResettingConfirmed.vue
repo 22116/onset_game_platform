@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import VueForm from "../components/VueForm"
+import VueForm from "../components/VueForm";
 
 export default {
   name: "ResettingConfirmed",
@@ -31,7 +31,7 @@ export default {
     };
   },
   methods: {
-    showSuccessAlert: function () {
+    showSuccessAlert: function() {
       this.isAlertShown = true;
     }
   }
