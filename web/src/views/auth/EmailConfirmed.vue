@@ -20,20 +20,19 @@ export default {
     };
   },
   mounted: function() {
-    let that = this;
     let token = this.$route.params.confirmationToken;
 
     this.axios
       .post(apiJoin("/auth/register/confirm"), {
         token: token
       })
-      .then(function() {
-        that.confirmStatus = true;
-        if (that.$auth.check()) {
-          that.$auth.logout();
+      .then(() => {
+        this.confirmStatus = true;
+        if (this.$auth.check()) {
+          this.$auth.logout();
         }
       })
-      .catch(() => (that.confirmStatus = false));
+      .catch(() => (this.confirmStatus = false));
   }
 };
 </script>
