@@ -43,7 +43,7 @@ class TokenController extends FOSRestController
             return $form;
         }
 
-        return $this->view("Token doesn't exists", 400);
+        return $this->view("Token doesn't exist", 400);
     }
 
     private function getProfileRepository(): ProfileRepository
