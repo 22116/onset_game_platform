@@ -17,3 +17,6 @@ parameters:
     excludes_analyse:
         - "%rootDir%/../../../src/Migrations/*"
         - "%rootDir%/../../../src/Validator/Constraints/*"
+
+    ignoreErrors:
+        - '#Method (.*) should return (.*)Repository but returns Doctrine\\Common\\Persistence\\ObjectRepository.#'

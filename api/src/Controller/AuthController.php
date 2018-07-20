@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\RegistrationFormType;
-
+use App\Utils\MailerDispatcherInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcherInterface;
@@ -13,7 +14,6 @@ use FOS\UserBundle\Model\UserManagerInterface;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManagerInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use App\Utils\MailerDispatcherInterface;
 
 /**
  * @Rest\Route("/api/auth")
@@ -81,11 +81,18 @@ class AuthController extends FOSRestController
     public function confirmEmail(ParamFetcherInterface $fetcher, UserManagerInterface $userManager): View
     {
         $token = $fetcher->get('token');
+        /** @var User $user */
         $user = $userManager->findUserByConfirmationToken($token);
 
         if (null !== $user) {
             $user->setEnabled(true);
             $user->setConfirmationToken(null);
+
+            if (null !== $user->getTempEmail()) {
+                $user->setEmail($user->getTempEmail());
+                $user->setTempEmail(null);
+            }
+
             $userManager->updateUser($user);
             return $this->view(null, 200);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -49,6 +50,16 @@ class User extends BaseUser
     protected $email;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\Email(groups={"changeEmail"})
+     * @Assert\NotBlank(groups={"changeEmail"})
+     * @AppAssert\UserEmail(groups={"changeEmail"})
+     * @Groups({"API"})
+     * @var string|null
+     */
+    protected $tempEmail;
+
+    /**
      * @Assert\NotBlank()
      * @Assert\Length(min="8")
      * @var string|null
@@ -61,6 +72,18 @@ class User extends BaseUser
      * @var Profile
      */
     protected $profile;
+
+    public function setTempEmail(?string $email): self
+    {
+        $this->tempEmail = $email;
+
+        return $this;
+    }
+
+    public function getTempEmail(): ?string
+    {
+        return $this->tempEmail;
+    }
 
     public function getProfile(): Profile
     {

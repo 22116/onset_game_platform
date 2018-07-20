@@ -28,7 +28,7 @@ export default {
     };
   },
   methods: {
-    showSuccessAlert: function () {
+    showSuccessAlert: function() {
       this.isAlertShown = true;
     }
   }

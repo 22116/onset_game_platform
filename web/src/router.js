@@ -8,6 +8,7 @@ import SignUp from "./views/auth/SignUp";
 import Resetting from "./views/auth/Resetting";
 import ResettingConfirmed from "./views/auth/ResettingConfirmed";
 import Settings from "./views/profile/Settings";
+import EmailConfirmed from "./views/auth/EmailConfirmed";
 
 Vue.use(Router);
 
@@ -63,13 +64,13 @@ let router = new Router({
       meta: {
         title: "Mintme | Login",
         auth: false
-      },
-      children: [
-        {
-          path: "confirm/:confirmationToken",
-          component: Login
-        }
-      ]
+      }
+    },
+    {
+      path: "/login/confirm/:confirmationToken",
+      name: "confirm_email",
+      component: EmailConfirmed,
+      meta: { title: "Mintme | Confirmation" }
     }
   ],
   mode: "history"

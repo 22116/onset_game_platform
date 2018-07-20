@@ -2,10 +2,10 @@
 
 namespace App\Controller;
 
-use App\Repository\ProfileRepository;
-use Doctrine\Common\Persistence\ObjectRepository;
 use App\Entity\Profile;
 use App\Form\EditProfileFormType;
+use App\Repository\ProfileRepository;
+use Doctrine\Common\Persistence\ObjectRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
@@ -19,7 +19,7 @@ class ProfileController extends FOSRestController
 {
     /**
      * @Rest\View()
-     * @Rest\Patch("/edit", name="profile_edit")
+     * @Rest\Patch(name="profile_edit")
      * @param Request $request
      * @return View|FormInterface
      */
@@ -40,9 +40,6 @@ class ProfileController extends FOSRestController
         return $form;
     }
 
-    /**
-     * @return ProfileRepository|ObjectRepository
-     */
     private function getProfileRepository(): ProfileRepository
     {
         return $this->getDoctrine()->getRepository(Profile::class);

@@ -1,11 +1,5 @@
 <template>
     <div class="container">
-        <div v-if="confirmStatus === true" class="alert alert-success">
-            Email was confirmed. You can login now.
-        </div>
-        <div v-if="confirmStatus === false" class="alert alert-danger">
-            There are no users attached to this account. Please try <router-link to="/register">Sign Up</router-link> again.
-        </div>
         <div v-if="showError" class="alert alert-danger">
             Invalid credentials
         </div>
@@ -32,40 +26,27 @@
 </template>
 
 <script>
-import { apiJoin } from "../../utils/path";
-
 export default {
   name: "Login",
   data() {
     return {
-      confirmStatus: null,
       email: null,
       password: null,
       rememberMe: false,
       showError: false
     };
   },
-  mounted: function() {
-    let that = this;
-    let token = this.$route.params.confirmationToken;
-    if (undefined !== token) {
-      this.axios
-        .post(apiJoin("/auth/register/confirm"), {
-          token: token
-        })
-        .then(() => (that.confirmStatus = true))
-        .catch(() => (that.confirmStatus = false));
-    }
-  },
   methods: {
     submit: function() {
       let that = this;
-      this.$auth.login({
-        data: { username: this.email, password: this.password },
-        rememberMe: this.rememberMe
-      }).catch(function () {
-        that.showError = true;
-      });
+      this.$auth
+        .login({
+          data: { username: this.email, password: this.password },
+          rememberMe: this.rememberMe
+        })
+        .catch(function() {
+          that.showError = true;
+        });
     }
   }
 };

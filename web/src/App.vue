@@ -22,11 +22,11 @@
 </template>
 
 <script>
-  export default {
-    mounted: function () {
-      this.$auth.user();
-    }
+export default {
+  mounted: function() {
+    this.$auth.user();
   }
+};
 </script>
 
 <style lang="scss">

@@ -64,7 +64,6 @@ class Token
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Profile", inversedBy="token", cascade={"persist"})
-     * @Groups({"API"})
      * @var Profile
      */
     private $profile;
@@ -102,7 +101,7 @@ class Token
         return $this->websiteUrl;
     }
 
-    public function setWebsiteUrl(string $websiteUrl): self
+    public function setWebsiteUrl(?string $websiteUrl): self
     {
         $this->websiteUrl = $websiteUrl;
 
@@ -114,7 +113,7 @@ class Token
         return $this->facebookUrl;
     }
 
-    public function setFacebookUrl(string $facebookUrl): self
+    public function setFacebookUrl(?string $facebookUrl): self
     {
         $this->facebookUrl = $facebookUrl;
 

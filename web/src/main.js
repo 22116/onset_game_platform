@@ -15,7 +15,7 @@ import VueToastr from "vue-toasted";
 Vue.router = router;
 Vue.http = axios;
 
-Vue.component('vue-toastr', VueToastr);
+Vue.component("vue-toastr", VueToastr);
 Vue.use(VueToastr, {
   duration: 800
 });
