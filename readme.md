@@ -55,8 +55,22 @@ For development purposes you can run webserver with the next command: `npm run s
 
 Running the test
 ----------------
-
-//TODO
+To run syntax checks
+```
+$ make -C ./api/ syntax_check
+$ npm run --prefix ./web lint
+```
+Perform auto-corrections
+```
+$ make -C ./api/ syntax_correction
+$ npm run --prefix ./web lint --fix
+```
+Run tests
+```
+$ make -C ./api/ phpunit
+$ npm run --prefix ./web test:unit
+$ npm run --prefix ./web test:e2e
+```
 
 Deployment
 ----------
