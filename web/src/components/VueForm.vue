@@ -13,8 +13,8 @@ import _ from "lodash";
 export default {
   name: "VueForm",
   props: {
-    action: { type: String, reuired: true },
-    method: { type: String, reuired: true },
+    action: { type: String, required: true },
+    method: { type: String, required: true },
     dataPrefix: String,
     isSecure: Boolean,
     doNothing: Boolean
@@ -34,7 +34,7 @@ export default {
       if (!this.doNothing) {
         connector(this.action, this.method, data, this.isSecure)
           .then(function(req) {
-            that.clearErros();
+            that.clearErrors();
             that.$emit("onSuccess", req);
           })
           .catch(function(error) {
@@ -54,7 +54,7 @@ export default {
       this.$emit("onSubmit");
     },
     showErrors: function(errors) {
-      this.clearErros();
+      this.clearErrors();
 
       let that = this;
       let prefix = this.dataPrefix === undefined ? "" : this.dataPrefix;
@@ -69,7 +69,7 @@ export default {
         el.parentNode.insertBefore(error, el);
       });
     },
-    clearErros: function() {
+    clearErrors: function() {
       let errors = this.$refs.form.getElementsByClassName("alert-danger");
 
       Array.from(errors).forEach(function(error) {
