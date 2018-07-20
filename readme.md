@@ -22,15 +22,13 @@ Installing
 ----------
 API:
 ```$xslt
-#Go to API root directory
-$ cd ./api
 #Install deps. Add --no-dev option in production
-composer install
-$ php bin/console doctrine:migrations:migrate --allow-no-migration -n
+composer install -d=./api
+$ php api/bin/console doctrine:migrations:migrate --allow-no-migration -n
 #Generate RSA keys for JWT tokens. This step can be skiped in development, as there are already provided some test keys
-$ mkdir -p config/jwt
-$ openssl genrsa -out config/jwt/private.pem -aes256 4096
-$ openssl rsa -pubout -in config/jwt/private.pem -out config/jwt/public.pem
+$ mkdir -p api/config/jwt
+$ openssl genrsa -out api/config/jwt/private.pem -aes256 4096
+$ openssl rsa -pubout -in api/config/jwt/private.pem -out api/config/jwt/public.pem
 ```
 Now you *must* to copy `.env.dist` file to `.env` and fill it with your data.<br>
 In production this data *must* be set in environment.<br>
@@ -43,12 +41,10 @@ WEB:
 Copy `.env.example` to `.env` and fill with your data.<br>
 In production this data *should* be set in environment.<br>
 ```$xslt
-#Go to WEB root directory
-$ cd ./web
 #Install deps
-$ npm i
+$ npm i --prefix ./web
 #Build application
-$ npm run build
+$ npm run build --prefix ./web
 ```
 
 For development purposes you can run webserver with the next command: `npm run serve`
