@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    <div v-if="confirmStatus === true" class="alert alert-success">
+  <b-container>
+    <b-alert :show="confirmStatus === true" variant="success">
       Email was confirmed. You can <router-link to="/login">login</router-link> now.
-    </div>
-    <div v-if="confirmStatus === false" class="alert alert-danger">
+    </b-alert>
+    <b-alert :show="confirmStatus === false" variant="danger">
       There are no users attached to this account. Please try <router-link to="/register">Sign Up</router-link> again.
-    </div>
-  </div>
+    </b-alert>
+  </b-container>
 </template>
 
 <script>
@@ -30,7 +30,7 @@ export default {
         this.confirmStatus = true;
         if (this.$auth.check()) {
           this.$auth.logout({
-            redirect: '/login'
+            redirect: "/login"
           });
         }
       })

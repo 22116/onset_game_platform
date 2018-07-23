@@ -1,21 +1,19 @@
 <template>
-  <div class="row justify-content-center">
+  <b-row class="justify-content-center">
     <VueForm v-if="!isAlertShown" action="/auth/resetting/confirm" method="PATCH" data-prefix="data" @onSuccess="showSuccessAlert">
-      <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input name="data[plainPassword][first]" type="password" class="form-control" id="pwd">
-      </div>
-      <div class="form-group">
-        <label for="pwd">Repeat Password:</label>
-        <input name="data[plainPassword][second]" type="password" class="form-control" id="rpwd">
-      </div>
-      <input type="hidden" name="token" :value="confirmToken" />
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <b-form-group label="Password:" label-for="pwd">
+        <b-form-input id="pwd" type="password" name="data[plainPassword][first]" placeholder="*********" />
+      </b-form-group>
+      <b-form-group label="Repeat Password:" label-for="rpwd">
+        <b-form-input id="rpwd" type="password" name="data[plainPassword][second]" placeholder="*********" />
+      </b-form-group>
+      <b-form-input type="hidden" name="token" :value="confirmToken" />
+      <b-button variant="primary" type="submit">Submit</b-button>
     </VueForm>
-    <div v-if="isAlertShown">
+    <b-alert variant="success" :show="isAlertShown">
       <p>Your password was successfully changed.</p>
-    </div>
-  </div>
+    </b-alert>
+  </b-row>
 </template>
 
 <script>

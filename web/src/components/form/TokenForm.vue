@@ -1,18 +1,15 @@
 <template>
   <VueForm method="PATCH" action="/tokens" @onSuccess="onTokenSuccess">
-    <div class="form-group">
-      <label for="weburl">Website:</label>
-      <input name="websiteUrl" type="url" class="form-control" id="weburl" :value="token.websiteUrl" />
-    </div>
-    <div class="form-group">
-      <label for="token-fburl">Facebook:</label>
-      <input name="facebookUrl" type="url" class="form-control" id="token-fburl" :value="token.facebookUrl" />
-    </div>
-    <div class="form-group">
-      <label for="token-description">Description:</label>
-      <textarea name="description" class="form-control" id="token-description" v-model="token.description"></textarea>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <b-form-group label="Website:" lavel-for="weburl">
+      <b-form-input name="websiteUrl" type="url" id="weburl" v-model="token.websiteUrl" />
+    </b-form-group>
+    <b-form-group label="Facebook:" lavel-for="token-fburl">
+      <b-form-input name="facebookUrl" type="url" id="token-fburl" v-model="token.facebookUrl" />
+    </b-form-group>
+    <b-form-group label="Description:" lavel-for="token-description">
+      <b-form-textarea name="description" id="token-description" v-model="token.description" />
+    </b-form-group>
+    <b-button type="submit" variant="primary">Submit</b-button>
   </VueForm>
 </template>
 

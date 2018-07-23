@@ -1,28 +1,26 @@
 <template>
-    <div class="container">
-        <div v-if="showError" class="alert alert-danger">
+    <b-container>
+        <b-alert :show="showError" variant="danger">
             Invalid credentials
-        </div>
-        <div class="row justify-content-center">
-            <form @submit.prevent="submit">
-                <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input name="username" v-model="email" type="email" class="form-control" id="email">
+        </b-alert>
+        <b-row class="justify-content-center">
+            <b-form @submit.prevent="submit">
+                <b-form-group label="Email address:" label-for="email">
+                    <b-form-input id="email" v-model="email" type="email" name="username" placeholder="Enter your email" />
+                </b-form-group>
+                <b-form-group label="Password:" label-for="pwd">
+                    <b-form-input id="pwd" v-model="password" type="password" name="password" placeholder="***********" />
+                </b-form-group>
+                <b-form-checkbox v-model="rememberMe">
+                    Remember me
+                </b-form-checkbox>
+                <div class="w-100">
+                    <router-link to="/resetting">Forgot password?</router-link>
+                    <b-button variant="primary" type="submit" class="ml-2">Submit</b-button>
                 </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input name="password" v-model="password" type="password" class="form-control" id="pwd">
-                </div>
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input v-model="rememberMe" class="form-check-input" type="checkbox"> Remember me
-                    </label>
-                </div>
-                <router-link to="/resetting">Forgot password?</router-link>
-                <button type="submit" class="btn btn-primary ml-2">Submit</button>
-            </form>
-        </div>
-    </div>
+            </b-form>
+        </b-row>
+    </b-container>
 </template>
 
 <script>

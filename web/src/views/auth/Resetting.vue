@@ -1,11 +1,10 @@
 <template>
   <div class="row justify-content-center">
     <VueForm v-if="!isAlertShown" method="POST" action="/auth/resetting" @onSuccess="showSuccessAlert">
-      <div class="form-group">
-        <label for="email">Email address:</label>
-        <input name="email" type="email" class="form-control" id="email">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <b-form-group label="Email address:" label-for="email">
+        <b-form-input id="email" type="email" name="email" placeholder="Enter your email" />
+      </b-form-group>
+      <b-button variant="primary" type="submit">Submit</b-button>
     </VueForm>
     <div v-if="isAlertShown">
       <p>If the email you typed matches yours, you will receive a message which contains a link you must click to reset your password.</p>

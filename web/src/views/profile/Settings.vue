@@ -1,37 +1,26 @@
 <template>
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="card">
-        <div class="card-header">Profile:</div>
-        <div class="card-body">
+    <b-card no-body>
+      <b-tabs card lazy>
+        <b-tab title="Personal data" id="profile" active>
           <profile-form :profile="profile" />
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-center mt-3">
-      <div class="card">
-        <div class="card-header">Change email:</div>
-        <div class="card-body">
-          <email-form :email="email" />
-        </div>
-      </div>
-    </div>
-    <div class="row justify-content-center mt-3">
-      <div class="card">
-        <div class="card-header">Change password:</div>
-        <div class="card-body">
-          <password-form />
-        </div>
-      </div>
-    </div>
-    <div v-if="token" class="row justify-content-center mt-3">
-      <div class="card">
-        <div class="card-header">Token:</div>
-        <div class="card-body">
-          <token-form :token="token" />
-        </div>
-      </div>
-    </div>
+        </b-tab>
+        <b-tab id="token" title="Token data">
+          <token-form v-if="token" :token="token" />
+          <div v-else>
+            There is no token attached to this account
+          </div>
+        </b-tab>
+        <b-tab id="account" title="Account settings">
+          <b-card title="Change email" class="text-center">
+            <email-form :email="email" />
+          </b-card>
+          <b-card title="Change password" class="text-center mt-2">
+            <password-form />
+          </b-card>
+        </b-tab>
+      </b-tabs>
+    </b-card>
   </div>
 </template>
 

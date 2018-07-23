@@ -1,8 +1,8 @@
 <template>
-  <form @submit.prevent="onSubmit" ref="form">
-    <div v-if="showInvalid" class="alert alert-danger">Whoops! Seems you've entered invalid data.</div>
+  <b-form @submit.prevent="onSubmit" ref="form">
+    <b-alert :show="showInvalid" variant="danger" dismissible>Whoops! Seems you've entered invalid data.</b-alert>
     <slot></slot>
-  </form>
+  </b-form>
 </template>
 
 <script>

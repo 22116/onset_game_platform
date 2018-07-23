@@ -1,30 +1,27 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
+    <b-container>
+        <b-row class="justify-content-center">
             <VueForm v-if="!showConfirm" action="/auth/register" method="POST" @onSuccess="submit">
-                <div class="form-group">
-                    <label for="email">Email address:</label>
-                    <input name="email" type="email" v-model="email" class="form-control" id="email" />
-                </div>
-                <div class="form-group">
-                    <label for="pwd">Password:</label>
-                    <input name="plainPassword[first]" type="password" class="form-control" id="pwd" />
-                </div>
-                <div class="form-group">
-                    <label for="rpwd">Repeat Password:</label>
-                    <input name="plainPassword[second]" type="password" class="form-control" id="rpwd" />
-                </div>
+                <b-form-group label="Email address:" label-for="email">
+                    <b-form-input id="email" v-model="email" type="email" name="email" placeholder="Enter your email" />
+                </b-form-group>
+                <b-form-group label="Password:" label-for="pwd">
+                    <b-form-input id="pwd" type="password" name="plainPassword[first]" placeholder="*********" />
+                </b-form-group>
+                <b-form-group label="Repeat Password:" label-for="rpwd">
+                    <b-form-input id="rpwd" type="password" name="plainPassword[second]" placeholder="*********" />
+                </b-form-group>
                 <input name="g-recaptcha-response" type="hidden" :value="recaptchaResponse" />
                 <vue-recaptcha :sitekey="sitekey" size="normal" type="checkbox" @verify="onVerify" @expired="onExpire">
-                    <button type="submit" class="btn btn-primary mt-2 float-right" :disabled="!verified">Submit</button>
+                    <button class="btn btn-primary mt-2 float-right" type="submit" :disabled="!verified">Submit</button>
                 </vue-recaptcha>
             </VueForm>
-            <div v-if="showConfirm">
+            <b-alert variant="success" :show="showConfirm">
                 <p>An email has been sent to {{ email }}. It contains an activation link you must click to activate your account.</p>
                 <p>Do not forget to check your spam folder</p>
-            </div>
-        </div>
-    </div>
+            </b-alert>
+        </b-row>
+    </b-container>
 </template>
 
 <script>

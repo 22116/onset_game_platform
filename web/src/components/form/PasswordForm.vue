@@ -1,14 +1,12 @@
 <template>
   <VueForm method="PATCH" action="/users/password" @onSuccess="onPasswordSuccess">
-    <div class="form-group">
-      <label for="pwd">Password:</label>
-      <input name="plainPassword[first]" type="password" class="form-control" id="pwd">
-    </div>
-    <div class="form-group">
-      <label for="pwd">Repeat Password:</label>
-      <input name="plainPassword[second]" type="password" class="form-control" id="rpwd">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <b-form-group label="Password:" label-for="pwd">
+      <b-form-input id="pwd" type="password" name="plainPassword[first]" placeholder="*********" />
+    </b-form-group>
+    <b-form-group label="Repeat Password:" label-for="rpwd">
+      <b-form-input id="rpwd" type="password" name="plainPassword[second]" placeholder="*********" />
+    </b-form-group>
+    <b-button type="submit" variant="primary">Submit</b-button>
   </VueForm>
 </template>
 

@@ -1,10 +1,9 @@
 <template>
   <VueForm method="POST" action="/users/email" @onSuccess="onEmailSuccess">
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input name="tempEmail" type="text" class="form-control" id="email" :value="email" />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <b-form-group label="Email address:" label-for="email">
+      <b-form-input id="email" type="email" name="tempEmail" placeholder="Enter your email" v-model="email" />
+    </b-form-group>
+    <b-button type="submit" variant="primary">Submit</b-button>
   </VueForm>
 </template>
 
