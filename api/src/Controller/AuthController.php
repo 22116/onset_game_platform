@@ -75,7 +75,7 @@ class AuthController extends FOSRestController
     public function confirmEmail(ParamFetcherInterface $fetcher, UserManagerInterface $userManager): View
     {
         $token = $fetcher->get('token');
-        /** @var User $user */
+        /** @var User|null $user */
         $user = $userManager->findUserByConfirmationToken($token);
 
         if (null === $user) {
@@ -130,7 +130,7 @@ class AuthController extends FOSRestController
         $user = $userManager->findUserByConfirmationToken($token);
         $limit = 2 * 3600;
 
-        if (null === $user && !$user->isPasswordRequestNonExpired($limit)) {
+        if (null === $user || !$user->isPasswordRequestNonExpired($limit)) {
             return $this->view(null, 400);
         }
 
