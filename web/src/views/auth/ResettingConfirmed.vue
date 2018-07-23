@@ -7,7 +7,7 @@
       <b-form-group label="Repeat Password:" label-for="rpwd">
         <b-form-input id="rpwd" type="password" name="data[plainPassword][second]" placeholder="*********" />
       </b-form-group>
-      <b-form-input type="hidden" name="token" :value="confirmToken" />
+      <input type="hidden" name="token" :value="confirmToken" />
       <b-button variant="primary" type="submit">Submit</b-button>
     </VueForm>
     <b-alert variant="success" :show="isAlertShown">
