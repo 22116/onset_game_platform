@@ -13,7 +13,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Rest\Route("/api/user")
+ * @Rest\Route("/api/users")
  */
 class UserController extends FOSRestController
 {
@@ -32,9 +32,6 @@ class UserController extends FOSRestController
     /**
      * @Rest\View()
      * @Rest\Post("/email", name="edit_user")
-     * @param Request $request
-     * @param MailerDispatcherInterface $mailerDispatcher
-     * @param UserManagerInterface $userManager
      * @return FormInterface|View
      */
     public function editUserEmail(
@@ -49,23 +46,22 @@ class UserController extends FOSRestController
 
         $form->submit($request->request->getIterator()->getArrayCopy());
 
-        if ($form->isValid()) {
-            $tmpUser = clone $user;
-            $tmpUser->setEmail($user->getTempEmail());
-            $mailerDispatcher->sendEmailConfirmation($tmpUser);
-            $user->setConfirmationToken($tmpUser->getConfirmationToken());
-            $userManager->updateUser($user);
-            return $this->view(null, 200);
+        if (!$form->isValid()) {
+            return $form;
         }
 
-        return $form;
+        $tmpUser = clone $user;
+        $tmpUser->setEmail($user->getTempEmail());
+        $mailerDispatcher->sendEmailConfirmation($tmpUser);
+        $user->setConfirmationToken($tmpUser->getConfirmationToken());
+        $userManager->updateUser($user);
+
+        return $this->view(null, 200);
     }
 
     /**
      * @Rest\View()
      * @Rest\Patch("/password")
-     * @param Request $request
-     * @param UserManagerInterface $userManager
      * @return View|FormInterface
      */
     public function editUserPassword(Request $request, UserManagerInterface $userManager)
@@ -75,11 +71,11 @@ class UserController extends FOSRestController
 
         $form->submit($request->request->getIterator()->getArrayCopy());
 
-        if ($form->isValid()) {
-            $userManager->updatePassword($user);
-            return $this->view(null, 200);
+        if (!$form->isValid()) {
+            return $form;
         }
 
-        return $form;
+        $userManager->updatePassword($user);
+        return $this->view(null, 200);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-  <VueForm method="PATCH" action="/user/password" @onSuccess="onPasswordSuccess">
+  <VueForm method="PATCH" action="/users/password" @onSuccess="onPasswordSuccess">
     <div class="form-group">
       <label for="pwd">Password:</label>
       <input name="plainPassword[first]" type="password" class="form-control" id="pwd">

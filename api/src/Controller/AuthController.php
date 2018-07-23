@@ -23,9 +23,6 @@ class AuthController extends FOSRestController
     /**
      * @Rest\View()
      * @Rest\Post("/register")
-     * @param Request $request
-     * @param UserManagerInterface $userManager
-     * @param MailerDispatcherInterface $mailerDispatcher
      * @return FormInterface|View
      */
     public function register(
@@ -38,23 +35,22 @@ class AuthController extends FOSRestController
 
         $form->submit($request->request->getIterator()->getArrayCopy());
 
-        if ($form->isValid()) {
-            $user->setEnabled(false);
-            $user->setUsername($user->getEmail());
-            $mailerDispatcher->sendEmailConfirmation($user);
-            $userManager->updateUser($user);
-            return $this->view(null, 200);
+        if (!$form->isValid()) {
+            return $form;
         }
 
-        return $form;
+        $user->setEnabled(false);
+        $user->setUsername($user->getEmail());
+        $mailerDispatcher->sendEmailConfirmation($user);
+        $userManager->updateUser($user);
+
+        return $this->view(null, 200);
     }
 
     /**
      * @Rest\View()
      * @Rest\Post("/logout")
      * @Rest\RequestParam(name="refresh_token", nullable=false, description="Refresh token to dump")
-     * @param ParamFetcherInterface $fetcher
-     * @return View
      */
     public function logout(ParamFetcherInterface $fetcher): View
     {
@@ -74,8 +70,6 @@ class AuthController extends FOSRestController
      * @Rest\View()
      * @Rest\Post("/register/confirm")
      * @Rest\RequestParam(name="token", nullable=false, description="Registration confirmation token")
-     * @param ParamFetcherInterface $fetcher
-     * @param UserManagerInterface $userManager
      * @return View
      */
     public function confirmEmail(ParamFetcherInterface $fetcher, UserManagerInterface $userManager): View
@@ -84,30 +78,27 @@ class AuthController extends FOSRestController
         /** @var User $user */
         $user = $userManager->findUserByConfirmationToken($token);
 
-        if (null !== $user) {
-            $user->setEnabled(true);
-            $user->setConfirmationToken(null);
-
-            if (null !== $user->getTempEmail()) {
-                $user->setEmail($user->getTempEmail());
-                $user->setTempEmail(null);
-            }
-
-            $userManager->updateUser($user);
-            return $this->view(null, 200);
+        if (null === $user) {
+            return $this->view(null, 400);
         }
 
-        return $this->view(null, 400);
+        $user->setEnabled(true);
+        $user->setConfirmationToken(null);
+
+        if (null !== $user->getTempEmail()) {
+            $user->setEmail($user->getTempEmail());
+            $user->setTempEmail(null);
+        }
+
+        $userManager->updateUser($user);
+
+        return $this->view(null, 200);
     }
 
     /**
      * @Rest\View()
      * @Rest\Post("/resetting")
      * @Rest\RequestParam(name="email", nullable=false, description="User email")
-     * @param ParamFetcherInterface $fetcher
-     * @param UserManagerInterface $userManager
-     * @param MailerDispatcherInterface $mailerDispatcher
-     * @return View
      */
     public function resetting(
         ParamFetcherInterface $fetcher,
@@ -129,8 +120,6 @@ class AuthController extends FOSRestController
      * @Rest\Patch("/resetting/confirm")
      * @Rest\RequestParam(name="data", nullable=false, description="form-data")
      * @Rest\RequestParam(name="token", nullable=false, description="token")
-     * @param ParamFetcherInterface $fetcher
-     * @param UserManagerInterface $userManager
      * @return View|FormInterface
      */
     public function confirmPassword(ParamFetcherInterface $fetcher, UserManagerInterface $userManager)
@@ -141,21 +130,22 @@ class AuthController extends FOSRestController
         $user = $userManager->findUserByConfirmationToken($token);
         $limit = 2 * 3600;
 
-        if (null !== $user && $user->isPasswordRequestNonExpired($limit)) {
-            $form = $this->createForm(ResettingFormType::class, $user);
-            $form->submit($data);
+        if (null === $user && !$user->isPasswordRequestNonExpired($limit)) {
+            return $this->view(null, 400);
+        }
 
-            if ($form->isValid()) {
-                $userManager->updatePassword($user);
-                $user->setConfirmationToken(null);
-                $userManager->updateUser($user);
-                return $this->view(null, 200);
-            }
+        $form = $this->createForm(ResettingFormType::class, $user);
+        $form->submit($data);
 
+        if (!$form->isValid()) {
             return $form;
         }
 
-        return $this->view(null, 400);
+        $userManager->updatePassword($user);
+        $user->setConfirmationToken(null);
+        $userManager->updateUser($user);
+
+        return $this->view(null, 200);
     }
 
     private function getRefreshTokenManager(): RefreshTokenManagerInterface

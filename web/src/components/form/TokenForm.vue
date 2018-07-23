@@ -1,5 +1,5 @@
 <template>
-  <VueForm method="PATCH" action="/token" @onSuccess="onTokenSuccess">
+  <VueForm method="PATCH" action="/tokens" @onSuccess="onTokenSuccess">
     <div class="form-group">
       <label for="weburl">Website:</label>
       <input name="websiteUrl" type="url" class="form-control" id="weburl" :value="token.websiteUrl" />

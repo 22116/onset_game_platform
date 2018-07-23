@@ -1,5 +1,5 @@
 <template>
-  <VueForm method="POST" action="/user/email" @onSuccess="onEmailSuccess">
+  <VueForm method="POST" action="/users/email" @onSuccess="onEmailSuccess">
     <div class="form-group">
       <label for="email">Email:</label>
       <input name="tempEmail" type="text" class="form-control" id="email" :value="email" />

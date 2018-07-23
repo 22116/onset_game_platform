@@ -13,14 +13,13 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Rest\Route("/api/profile")
+ * @Rest\Route("/api/profiles")
  */
 class ProfileController extends FOSRestController
 {
     /**
      * @Rest\View()
      * @Rest\Patch(name="profile_edit")
-     * @param Request $request
      * @return View|FormInterface
      */
     public function editProfile(Request $request)
@@ -30,14 +29,15 @@ class ProfileController extends FOSRestController
 
         $form->submit($request->request->getIterator()->getArrayCopy());
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($profile);
-            $em->flush();
-            return $this->view(null, 200);
+        if (!$form->isValid()) {
+            return $form;
         }
 
-        return $form;
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($profile);
+        $em->flush();
+
+        return $this->view(null, 200);
     }
 
     private function getProfileRepository(): ProfileRepository

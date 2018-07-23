@@ -1,5 +1,5 @@
 <template>
-  <VueForm method="PATCH" action="/profile" @onSuccess="onProfileSuccess">
+  <VueForm method="PATCH" action="/profiles" @onSuccess="onProfileSuccess">
     <div class="form-group">
       <label for="fname">First name:</label>
       <input name="firstName" type="text" class="form-control" id="fname" :value="profile.firstName" />

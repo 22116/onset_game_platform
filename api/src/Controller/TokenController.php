@@ -12,14 +12,13 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * @Rest\Route("/api/token")
+ * @Rest\Route("/api/tokens")
  */
 class TokenController extends FOSRestController
 {
     /**
      * @Rest\View()
      * @Rest\Patch()
-     * @param Request $request
      * @return View|FormInterface
      */
     public function editToken(Request $request)
@@ -27,23 +26,23 @@ class TokenController extends FOSRestController
         $profile = $this->getProfileRepository()->getProfileByUser($this->getUser());
         $token = $profile->getToken();
 
-        if (null !== $token) {
-            $form = $this->createForm(EditTokenFormType::class, $token);
+        if (null === $token) {
+            return $this->view("Token doesn't exist", 400);
+        }
 
-            $form->submit($request->request->getIterator()->getArrayCopy());
+        $form = $this->createForm(EditTokenFormType::class, $token);
 
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($token);
-                $em->flush();
+        $form->submit($request->request->getIterator()->getArrayCopy());
 
-                return $this->view(null, 200);
-            }
-
+        if (!$form->isValid()) {
             return $form;
         }
 
-        return $this->view("Token doesn't exist", 400);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($token);
+        $em->flush();
+
+        return $this->view(null, 200);
     }
 
     private function getProfileRepository(): ProfileRepository

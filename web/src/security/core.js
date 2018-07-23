@@ -23,7 +23,7 @@ export default {
     makeRequest: true
   },
   fetchData: {
-    url: apiJoin("/user"),
+    url: apiJoin("/users"),
     method: "GET",
     enabled: true
   },
