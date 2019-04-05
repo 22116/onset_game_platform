@@ -11,7 +11,6 @@ This project covers several typical SPA things, like:
 * Prerender plugin
 * Offline usage
 * Re-Captcha verification
-* Form wrapper based on https://github.com/22116/vue-symfony-form
 
 Also were added: `sass loader, bs4, js/php linters, php static analyzer, dotenv, phpunit, mocha+chai, e2e`
 
