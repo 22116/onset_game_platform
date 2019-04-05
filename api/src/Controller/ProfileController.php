@@ -1,13 +1,12 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Controller;
 
 use App\Entity\Profile;
 use App\Form\EditProfileFormType;
 use App\Repository\ProfileRepository;
-use Doctrine\Common\Persistence\ObjectRepository;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Rest\Route("/api/profiles")
  */
-class ProfileController extends FOSRestController
+class ProfileController extends AbstractFOSRestController
 {
     /**
      * @Rest\View()

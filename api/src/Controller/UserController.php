@@ -1,10 +1,10 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Controller;
 
 use App\Utils\MailerDispatcherInterface;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use FOS\UserBundle\Form\Type\ResettingFormType;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * @Rest\Route("/api/users")
  */
-class UserController extends FOSRestController
+class UserController extends AbstractFOSRestController
 {
     /**
      * 'data' is a required wrapper for websanova auth library
@@ -76,6 +76,7 @@ class UserController extends FOSRestController
         }
 
         $userManager->updatePassword($user);
+
         return $this->view(null, 200);
     }
 }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Entity;
 
@@ -99,6 +99,7 @@ class User extends BaseUser
     public function setEmail($email)
     {
         $this->username = $email;
+
         return parent::setEmail($email);
     }
 }

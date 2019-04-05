@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Entity;
 
@@ -60,25 +60,6 @@ class Profile
      * @var User
      */
     protected $user;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Token", mappedBy="profile", cascade={"persist", "remove"})
-     * @Groups({"API"})
-     * @var Token|null
-     */
-    private $token;
-
-    public function getToken(): ?Token
-    {
-        return $this->token;
-    }
-
-    public function setToken(?Token $token): self
-    {
-        $this->token = $token;
-
-        return $this;
-    }
 
     public function getFirstName(): ?string
     {

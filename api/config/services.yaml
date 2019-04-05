@@ -11,6 +11,8 @@ parameters:
     mailer_password: '%env(resolve:MAILER_PASSWORD)%'
     google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
     client_host: '%env(CLIENT_HOST)%'
+    refresh_token_ttl: 2592000
+    auth_token_ttl: 300
 
 services:
     # default configuration for services in *this* file
@@ -41,3 +43,10 @@ services:
     App\Mailer\Mailer:
         arguments:
             $mailUser: '%mailer_user%'
+
+    App\EventSubscriber\JWTMiddlewareSubscriber:
+        arguments:
+            $tokTtl: '%auth_token_ttl%'
+            $refreshTokTtl: '%refresh_token_ttl%'
+            $secret: '%env(APP_SECRET)%'
+
