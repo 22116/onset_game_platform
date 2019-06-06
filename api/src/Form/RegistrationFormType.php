@@ -24,7 +24,7 @@ class RegistrationFormType extends AbstractType
             ])
             ->add('g-recaptcha-response', EWZRecaptchaType::class, [
                 'mapped' => false,
-                'constraints' => [ new IsTrue() ],
+//                'constraints' => [ new IsTrue() ],
             ]);
     }
 

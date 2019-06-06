@@ -13,6 +13,8 @@ parameters:
     client_host: '%env(CLIENT_HOST)%'
     refresh_token_ttl: 2592000
     auth_token_ttl: 300
+    audio_directory: '%kernel.project_dir%/public/uploads/audio'
+    onset_detector_url: onset_detector:8095
 
 services:
     # default configuration for services in *this* file
@@ -27,7 +29,7 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{DependencyInjection,Migrations,Tests,Kernel.php}'
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
@@ -49,4 +51,14 @@ services:
             $tokTtl: '%auth_token_ttl%'
             $refreshTokTtl: '%refresh_token_ttl%'
             $secret: '%env(APP_SECRET)%'
+
+    onset_detector.json_rpc:
+        class: App\Communications\GuzzleWrapper
+        arguments:
+            $url: '%onset_detector_url%'
+            $timeoutSeconds: 500
+
+    App\Communications\Api\OnsetDetector:
+        arguments:
+            $rpc: '@onset_detector.json_rpc'
 

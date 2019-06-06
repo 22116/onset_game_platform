@@ -11,10 +11,10 @@ module.exports = {
         systemvars: true,
         silent: false
       }),
-      new PrerenderSPAPlugin({
-        staticDir: path.join(__dirname, "dist"),
-        routes: ["/", "/about", "/login", "/register", "/resseting"]
-      })
+      // new PrerenderSPAPlugin({
+      //   staticDir: path.join(__dirname, "dist"),
+      //   routes: ["/", "/about", "/login", "/register", "/resseting"]
+      // })
     ]
   }
 };

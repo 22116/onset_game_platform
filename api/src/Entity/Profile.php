@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Validator\Constraints as AppAssert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -54,6 +55,12 @@ class Profile
      * @var string|null
      */
     protected $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Record", mappedBy="profile")
+     * @var ArrayCollection
+     */
+    protected $records;
 
     /**
      * @ORM\OneToOne(targetEntity="User", orphanRemoval=true)

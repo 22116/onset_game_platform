@@ -5,7 +5,8 @@ const semicolon = "SemICol0N";
 function attachJWT(http, req, tokens) {
   http.options.http._setHeaders.call(http, req, {
     "Content-Type": "application/json",
-    Authorization: "Bearer " + tokens[0]
+    Authorization: "Bearer " + tokens[0],
+    "X-Requested-With": "XMLHttpRequest"
   });
 }
 

@@ -1,19 +1,27 @@
 <template>
   <div class="container">
     <b-card no-body>
-      <b-tabs card lazy>
-        <b-tab title="Personal data" id="profile" active>
-          <profile-form :profile="profile" />
-        </b-tab>
-        <b-tab id="account" title="Account settings">
-          <b-card title="Change email" class="text-center">
-            <email-form :email="email" />
-          </b-card>
-          <b-card title="Change password" class="text-center mt-2">
-            <password-form />
-          </b-card>
-        </b-tab>
-      </b-tabs>
+      <b-card-body class="p-0">
+        <b-tabs card lazy>
+          <b-tab title="Personal data" id="profile" active>
+            <profile-form :profile="profile" />
+          </b-tab>
+          <b-tab id="account" title="Account settings">
+            <b-row>
+              <b-col>
+                <b-card title="Change email" class="text-center">
+                  <email-form :email="email" />
+                </b-card>
+              </b-col>
+              <b-col>
+                <b-card title="Change password" class="text-center">
+                  <password-form />
+                </b-card>
+              </b-col>
+            </b-row>
+          </b-tab>
+        </b-tabs>
+      </b-card-body>
     </b-card>
   </div>
 </template>

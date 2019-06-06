@@ -22,6 +22,11 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql zip bcmath pcntl sockets gd
 
 WORKDIR ${APP_PATH}
 
+RUN touch /usr/local/etc/php/php.ini
+RUN echo 'memory_limit=-1' >> /usr/local/etc/php/php.ini
+RUN echo 'upload_max_filesize=100M' >> /usr/local/etc/php/php.ini
+RUN echo 'post_max_size=100M' >> /usr/local/etc/php/php.ini
+
 COPY docker-entrypoint.sh /usr/local/bin/
 
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh \

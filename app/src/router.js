@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "./components/views/Home.vue";
-import About from "./components/views/About.vue";
+import Records from "./components/views/Records.vue";
 import Login from "./components/views/auth/Login";
 import page404 from "./components/views/Page404";
 import SignUp from "./components/views/auth/SignUp";
@@ -9,6 +9,7 @@ import Resetting from "./components/views/auth/Resetting";
 import ResettingConfirmed from "./components/views/auth/ResettingConfirmed";
 import Settings from "./components/views/profile/Settings";
 import EmailConfirmed from "./components/views/auth/EmailConfirmed";
+import Game from "./components/views/Game";
 
 Vue.use(Router);
 
@@ -20,10 +21,14 @@ let router = new Router({
       component: Home
     },
     {
-      path: "/about",
-      name: "about",
-      component: About,
-      meta: { auth: true }
+      path: "/records",
+      name: "records",
+      component: Records,
+    },
+    {
+      path: "/game/:id",
+      name: "game",
+      component: Game,
     },
     {
       path: "/settings",

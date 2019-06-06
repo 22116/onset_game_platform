@@ -1,7 +1,11 @@
 <template>
     <b-container>
         <b-row class="justify-content-center">
-            <register-form></register-form>
+            <b-card>
+                <b-card-body>
+                    <register-form></register-form>
+                </b-card-body>
+            </b-card>
         </b-row>
     </b-container>
 </template>

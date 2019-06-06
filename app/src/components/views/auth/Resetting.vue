@@ -1,7 +1,13 @@
 <template>
-  <b-row class="justify-content-center">
-    <resetting-form></resetting-form>
-  </b-row>
+  <b-container>
+    <b-row class="justify-content-center">
+      <b-card>
+        <b-card-body>
+          <resetting-form></resetting-form>
+        </b-card-body>
+      </b-card>
+    </b-row>
+  </b-container>
 </template>
 
 <script>

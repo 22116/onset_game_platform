@@ -10,7 +10,6 @@
       <b-form-group label="Repeat Password:" label-for="rpwd">
         <b-form-input id="rpwd" type="password" name="plainPassword[second]" placeholder="*********" />
       </b-form-group>
-      <input name="g-recaptcha-response" type="hidden" :value="recaptchaResponse" />
       <vue-recaptcha :sitekey="sitekey" size="normal" type="checkbox" @verify="onVerify" @expired="onExpire">
         <button class="btn btn-primary mt-2 float-right" type="submit" :disabled="!verified">Submit</button>
       </vue-recaptcha>

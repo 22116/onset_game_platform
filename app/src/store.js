@@ -8,9 +8,9 @@ export default new Vuex.Store({
     currentJWT: ""
   },
   getters: {
-    jwt: state => state.currentJWT,
+    jwt: state => () => state.currentJWT,
     jwtData: (state, getters) =>
-      state.currentJWT ? JSON.parse(atob(getters.jwt.split(".")[1])) : null,
+      state.currentJWT ? JSON.parse(atob(getters.jwt().split(".")[1])) : null,
     jwtUsername: (state, getters) =>
       getters.jwtData ? getters.jwtData.username : null,
     jwtRoles: (state, getters) =>

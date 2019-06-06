@@ -1,23 +1,29 @@
 <template>
-  <div id="app" class="container-fluid">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <template v-if="!$auth.check()">
-        <router-link  to="/login">Login</router-link> |
-        <router-link  to="/register">Sign Up</router-link>
-      </template>
-      <template v-else>
-        <router-link to="/about">About</router-link> |
-        <router-link to="/settings">Settings</router-link> |
-        <a v-if="$auth.check()" href="/" @click.prevent="$auth.logout()">Logout</a>
-      </template>
-    </div>
-    <div v-if="$auth.ready()">
-      <router-view></router-view>
-    </div>
-    <div v-if="!$auth.ready()">
-      <div class="loader m-auto"></div>
-    </div>
+  <div id="app" class="container-fluid p-0">
+    <b-row id="nav" class="m-0">
+      <b-col cols="12">
+        <router-link to="/">Home</router-link> |
+        <router-link to="/records">Records</router-link> |
+        <template v-if="!$auth.check()">
+          <router-link  to="/login">Login</router-link> |
+          <router-link  to="/register">Sign Up</router-link>
+        </template>
+        <template v-else>
+          <router-link to="/settings">Settings</router-link> |
+          <a v-if="$auth.check()" href="/" @click.prevent="$auth.logout()">Logout</a>
+        </template>
+      </b-col>
+    </b-row>
+    <b-row v-if="$auth.ready()" class="m-0">
+      <b-col cols="12" class="p-0">
+        <router-view></router-view>
+      </b-col>
+    </b-row>
+    <b-row v-if="!$auth.ready()" class="m-0">
+      <b-col>
+        <div class="loader m-auto"></div>
+      </b-col>
+    </b-row>
   </div>
 </template>
 

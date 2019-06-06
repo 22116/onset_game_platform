@@ -14,7 +14,8 @@ export default function(route, method, data, isSecure = false) {
 
   if (isSecure) {
     request.headers.add({
-      Authorization: "Bearer " + store.getters.jwt
+      Authorization: "Bearer " + store.getters.jwt,
+      'X-Requested-With': 'XMLHttpRequest'
     });
   }
 

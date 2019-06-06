@@ -35,3 +35,10 @@ services:
       - 80:80
       - 8080:8080
     command: [nginx-debug, '-g', 'daemon off;']
+
+  onset_detector:
+      build: https://github.com/22116/onset_detector.git
+      volumes:
+        - ./api/public/uploads/audio:/www/home/user/storage
+      ports:
+        - 8095:8095
